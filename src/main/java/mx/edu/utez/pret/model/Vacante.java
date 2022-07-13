@@ -59,7 +59,7 @@ public class Vacante {
     private Date fechaVigencia;
 
     @OneToMany(mappedBy = "vacante")
-    private Set<CandidatoVacante> candidatosVacantes;
+    private Set<Postulacion> postulaciones;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "reclutador_id")

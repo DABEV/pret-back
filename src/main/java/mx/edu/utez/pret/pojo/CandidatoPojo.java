@@ -21,7 +21,7 @@ public class CandidatoPojo extends UsuarioPojo {
     private List<ExperienciaLaboralPojo> experienciasLaborales;
     private List<EstudioPojo> estudios;
     private Set<ContactoPojo> contactos;
-    private Set<CandidatoVacantePojo> candidatosVacantes;
+    private Set<PostulacionPojo> postulaciones;
     private Set<IdiomaCandidatoPojo> idiomas;
     private Set<VacantePojo> vacantesFavoritas;
     
@@ -31,7 +31,7 @@ public class CandidatoPojo extends UsuarioPojo {
             String tituloCurricular, String descripcionPerfil, String foto,
             Map<String, Object> conocimientosHabilidades, List<CursoPojo> cursos, List<CertificacionPojo> certificaciones,
             List<ExperienciaLaboralPojo> experienciasLaborales, List<EstudioPojo> estudios, Set<ContactoPojo> contactos,
-            Set<CandidatoVacantePojo> candidatosVacantes, Set<IdiomaCandidatoPojo> idiomas, Set<VacantePojo> vacantesFavoritas) {
+            Set<PostulacionPojo> postulaciones, Set<IdiomaCandidatoPojo> idiomas, Set<VacantePojo> vacantesFavoritas) {
         super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, telefono, fechaNacimiento,
                 estadoRepublica, roles);
         this.tituloCurricular = tituloCurricular;
@@ -43,7 +43,7 @@ public class CandidatoPojo extends UsuarioPojo {
         this.experienciasLaborales = experienciasLaborales;
         this.estudios = estudios;
         this.contactos = contactos;
-        this.candidatosVacantes = candidatosVacantes;
+        this.postulaciones = postulaciones;
         this.idiomas = idiomas;
         this.vacantesFavoritas = vacantesFavoritas;
     }

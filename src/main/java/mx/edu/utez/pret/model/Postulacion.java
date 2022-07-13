@@ -17,9 +17,9 @@ import lombok.Setter;
 @Table(name = "candidato_vacante")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class CandidatoVacante {
+public class Postulacion {
     @EmbeddedId
-    private CandidatoVacanteId id;
+    private PostulacionId id;
 
     @ManyToOne
     @MapsId("candidatoId")

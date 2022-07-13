@@ -55,7 +55,7 @@ public class Candidato extends Usuario {
     private Set<Contacto> contactos;
 
     @OneToMany(mappedBy = "candidato")
-    private Set<CandidatoVacante> candidatosVacantes;
+    private Set<Postulacion> postulaciones;
 
     @OneToMany(mappedBy = "candidato")
     private Set<IdiomaCandidato> idiomas;
@@ -70,7 +70,7 @@ public class Candidato extends Usuario {
             String tituloCurricular, String descripcionPerfil, String foto,
             Map<String, Object> conocimientosHabilidades, List<Curso> cursos, List<Certificacion> certificaciones,
             List<ExperienciaLaboral> experienciasLaborales, List<Estudio> estudios, Set<Contacto> contactos,
-            Set<CandidatoVacante> candidatosVacantes, Set<IdiomaCandidato> idiomas, Set<Vacante> vacantesFavoritas) {
+            Set<Postulacion> postulaciones, Set<IdiomaCandidato> idiomas, Set<Vacante> vacantesFavoritas) {
         super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, telefono, fechaNacimiento,
                 estadoRepublica, roles);
         this.tituloCurricular = tituloCurricular;
@@ -82,7 +82,7 @@ public class Candidato extends Usuario {
         this.experienciasLaborales = experienciasLaborales;
         this.estudios = estudios;
         this.contactos = contactos;
-        this.candidatosVacantes = candidatosVacantes;
+        this.postulaciones = postulaciones;
         this.idiomas = idiomas;
         this.vacantesFavoritas = vacantesFavoritas;
     }

@@ -19,7 +19,7 @@ public class VacantePojo {
     private Integer sueldoMax;
     private String periodoPago;
     private Date fechaVigencia;
-    private Set<CandidatoVacantePojo> candidatosVacantes;
+    private Set<PostulacionPojo> postulaciones;
     private ReclutadorPojo reclutador;
     private Set<BeneficioPojo> beneficios;
     private Set<CandidatoPojo> candidatosEnFavoritos;

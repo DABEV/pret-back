@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CandidatoVacantePojo {
-    private CandidatoVacanteIdPojo id;
+public class PostulacionPojo {
+    private PostulacionIdPojo id;
     private CandidatoPojo candidato;
     private VacantePojo vacante;
     private String cv;
