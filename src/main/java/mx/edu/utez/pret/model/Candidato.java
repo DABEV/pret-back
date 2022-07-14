@@ -66,12 +66,12 @@ public class Candidato extends Usuario {
     
     @Builder(buildMethodName = "candidatoBuilder")
     public Candidato(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
-            String contrasena, String telefono, Date fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
+            String contrasena,Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
             String tituloCurricular, String descripcionPerfil, String foto,
             Map<String, Object> conocimientosHabilidades, List<Curso> cursos, List<Certificacion> certificaciones,
             List<ExperienciaLaboral> experienciasLaborales, List<Estudio> estudios, Set<Contacto> contactos,
             Set<Postulacion> postulaciones, Set<IdiomaCandidato> idiomas, Set<Vacante> vacantesFavoritas) {
-        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, telefono, fechaNacimiento,
+        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento,
                 estadoRepublica, roles);
         this.tituloCurricular = tituloCurricular;
         this.descripcionPerfil = descripcionPerfil;

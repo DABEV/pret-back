@@ -47,6 +47,9 @@ public class Usuario {
     @Column(nullable = false)
     private String contrasena;
 
+    @Column(nullable = false, columnDefinition="tinyint(1) default 1")
+    private boolean habilitado;
+
     @Column(nullable = true, length = 20)
     private String telefono;
 
