@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CandidatoVacanteIdPojo {
+public class PostulacionIdPojo {
     private Long candidatoId;
     private Long vacanteId;
 }

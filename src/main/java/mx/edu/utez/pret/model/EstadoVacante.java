@@ -15,11 +15,11 @@ import lombok.Setter;
 @Getter @Setter
 public class EstadoVacante extends Catalogo {
     @OneToMany(mappedBy = "estadoVacante")
-    private List<CandidatoVacante> candidatoVacantes;
+    private List<Postulacion> postulaciones;
 
     @Builder(buildMethodName = "estadoVacanteBuilder")
-    public EstadoVacante(Long id, String nombre, List<CandidatoVacante> candidatoVacantes) {
+    public EstadoVacante(Long id, String nombre, List<Postulacion> postulaciones) {
         super(id, nombre);
-        this.candidatoVacantes = candidatoVacantes;
+        this.postulaciones = postulaciones;
     }
 }

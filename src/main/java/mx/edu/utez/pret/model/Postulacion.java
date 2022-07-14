@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "candidato_vacante")
+@Table(name = "postulaciones")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class CandidatoVacante {
+public class Postulacion {
     @EmbeddedId
-    private CandidatoVacanteId id;
+    private PostulacionId id;
 
     @ManyToOne
     @MapsId("candidatoId")

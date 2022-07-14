@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter @Setter
 @EqualsAndHashCode
 @NoArgsConstructor @AllArgsConstructor
-public class CandidatoVacanteId implements Serializable {
+public class PostulacionId implements Serializable {
     @Column(nullable = false, name = "candidato_id")
     private Long candidatoId;
 

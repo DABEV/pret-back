@@ -9,11 +9,11 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class EstadoVacantePojo extends CatalogoPojo {
-    private List<CandidatoVacantePojo> candidatoVacantes;
+    private List<PostulacionPojo> postulaciones;
 
     @Builder(buildMethodName = "estadoVacanteBuilder")
-    public EstadoVacantePojo(Long id, String nombre, List<CandidatoVacantePojo> candidatoVacantes) {
+    public EstadoVacantePojo(Long id, String nombre, List<PostulacionPojo> postulaciones) {
         super(id, nombre);
-        this.candidatoVacantes = candidatoVacantes;
+        this.postulaciones = postulaciones;
     }
 }
