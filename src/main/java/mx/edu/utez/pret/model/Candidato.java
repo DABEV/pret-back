@@ -66,7 +66,7 @@ public class Candidato extends Usuario {
     
     @Builder(buildMethodName = "candidatoBuilder")
     public Candidato(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
-            String contrasena,Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
+            String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
             String tituloCurricular, String descripcionPerfil, String foto,
             Map<String, Object> conocimientosHabilidades, List<Curso> cursos, List<Certificacion> certificaciones,
             List<ExperienciaLaboral> experienciasLaborales, List<Estudio> estudios, Set<Contacto> contactos,
