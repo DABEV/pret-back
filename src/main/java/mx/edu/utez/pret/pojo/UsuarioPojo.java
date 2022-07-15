@@ -15,6 +15,7 @@ public class UsuarioPojo {
     private String apellidoMaterno;
     private String correoElectronico;
     private String contrasena;
+    private Boolean habilitado;
     private String telefono;
     private Date fechaNacimiento;
     private EstadoRepublicaPojo estadoRepublica;
