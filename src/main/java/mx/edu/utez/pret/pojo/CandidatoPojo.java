@@ -27,12 +27,12 @@ public class CandidatoPojo extends UsuarioPojo {
     
     @Builder(buildMethodName = "candidatoBuilder")
     public CandidatoPojo(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
-            String contrasena, String telefono, Date fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
+            String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
             String tituloCurricular, String descripcionPerfil, String foto,
             Map<String, Object> conocimientosHabilidades, List<CursoPojo> cursos, List<CertificacionPojo> certificaciones,
             List<ExperienciaLaboralPojo> experienciasLaborales, List<EstudioPojo> estudios, Set<ContactoPojo> contactos,
             Set<PostulacionPojo> postulaciones, Set<IdiomaCandidatoPojo> idiomas, Set<VacantePojo> vacantesFavoritas) {
-        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, telefono, fechaNacimiento,
+        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento,
                 estadoRepublica, roles);
         this.tituloCurricular = tituloCurricular;
         this.descripcionPerfil = descripcionPerfil;

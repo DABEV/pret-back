@@ -18,9 +18,9 @@ public class ReclutadorPojo extends UsuarioPojo {
 
     @Builder(buildMethodName = "reclutadorBuilder")
     public ReclutadorPojo(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
-            String contrasena, String telefono, Date fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
+            String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
             PuestoPojo puesto, String nombreEmpresa, EstadoRepublicaPojo estadoRepublicaEmpresa, List<VacantePojo> vacantes) {
-        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, telefono, fechaNacimiento,
+        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento,
                 estadoRepublica, roles);
         this.puesto = puesto;
         this.nombreEmpresa = nombreEmpresa;
