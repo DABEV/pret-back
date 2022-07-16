@@ -7,9 +7,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "beneficios")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Beneficio extends Catalogo {
     @ManyToMany(mappedBy = "beneficios")
     private Set<Vacante> vacantes;

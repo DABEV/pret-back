@@ -24,3 +24,6 @@ spring.jpa.generate-ddl=true
 # create = crea la base de datos y destruye los datos previos
 # update = actualiza la base de datos si es necesario
 spring.jpa.hibernate.ddl-auto=update
+
+# Prefijo para todas las rutas en la API
+server.servlet.context-path=/api
