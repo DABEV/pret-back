@@ -33,7 +33,7 @@ public class BeneficioController {
     
     @GetMapping("/obtener")
     public ResponseEntity<Map<String, Object>> obtenerTodos () {
-        return new ResponseEntity<>(response.buildStandarResponse("Obtener todos los beneficios", modelMapper.mapList(serviceImp.obtenerTodos(), BeneficioPojo.class)), HttpStatus.OK);
+        return new ResponseEntity<>(response.buildStandardResponse("Obtener todos los beneficios", modelMapper.mapList(serviceImp.obtenerTodos(), BeneficioPojo.class)), HttpStatus.OK);
     }
 
     @GetMapping("/obtener/{id}")
@@ -42,8 +42,8 @@ public class BeneficioController {
         Long idL = id.get();
         Optional<Beneficio> beneficio = serviceImp.obtenerPorId(idL);
         Map<String, Object> res = beneficio.isPresent() 
-            ? response.buildStandarResponse(title, beneficio.get())
-            : response.buildStandarResponse(title, null, String.format("El beneficio con el id %d no existe", idL));
+            ? response.buildStandardResponse(title, beneficio.get())
+            : response.buildStandardResponse(title, null, String.format("El beneficio con el id %d no existe", idL));
         
         return new ResponseEntity<>(res, HttpStatus.OK);
     }

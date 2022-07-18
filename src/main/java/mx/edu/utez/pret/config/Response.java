@@ -18,15 +18,15 @@ public class Response {
         mainJson = new HashMap<>();
     }
     
-    public Map<String, Object> buildStandarResponse (String title, Object data) {
+    public Map<String, Object> buildStandardResponse (String title, Object data) {
         mainJson.clear();
         mainJson.put(TITLE, title);
         mainJson.put(DATA, data);
         return mainJson;       
     }
 
-    public Map<String, Object> buildStandarResponse (String title, Object data, String description) {
-        mainJson = buildStandarResponse(title, data);
+    public Map<String, Object> buildStandardResponse (String title, Object data, String description) {
+        mainJson = buildStandardResponse(title, data);
         mainJson.put(DESCRIPTION, description);
         return mainJson;       
     }
