@@ -39,7 +39,7 @@ public class BeneficioController {
     @GetMapping("/obtener/{id}")
     public ResponseEntity<Map<String, Object>> obtenerPorId (@PathVariable Optional<Long> id) {
         String title = "Obtener un beneficio";
-        Long idL = id.get();
+        Long idL = id.isPresent() ? id.get() : null;
         Optional<Beneficio> beneficio = serviceImp.obtenerPorId(idL);
         Map<String, Object> res = beneficio.isPresent() 
             ? response.buildStandardResponse(title, beneficio.get())
