@@ -6,12 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "estados_republica")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter @Setter
 public class EstadoRepublica extends Catalogo {
     @OneToMany(mappedBy = "estadoRepublica")
