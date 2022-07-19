@@ -18,7 +18,7 @@ import mx.edu.utez.pret.pojo.EstadoVacantePojo;
 import mx.edu.utez.pret.service.EstadoVacanteServiceImp;
 
 @RestController
-@RequestMapping("/estadoVacante")
+@RequestMapping("/estado-vacante")
 public class EstadoVacanteController {
     
     @Autowired
@@ -33,18 +33,18 @@ public class EstadoVacanteController {
 
     @GetMapping("/obtener")
     public ResponseEntity<Map<String, Object>> obtenerTodos(){
-        return new ResponseEntity<>(response.buildStandardResponse("Obtener todos los estadosVacante",
+        return new ResponseEntity<>(response.buildStandardResponse("Obtener todos los estados de la vacante",
          modelMapper.mapList(serviceImp.obtenerTodos(), EstadoVacantePojo.class)), HttpStatus.OK);
     }
 
     @GetMapping("/obtener/{id}")
     public ResponseEntity<Map<String, Object>> obtenerPorId (@PathVariable Optional<Long> id) {
-        String title = "Obtener un estadoVacante";
+        String title = "Obtener un estado de vacante";
         Long idL = id.isPresent() ? id.get() : null;
         Optional<EstadoVacante> estadoVacante = serviceImp.obtenerPorId(idL);
         Map<String, Object> res = estadoVacante.isPresent() 
             ? response.buildStandardResponse(title, estadoVacante.get())
-            : response.buildStandardResponse(title, null, String.format("El estadoVacante con el id %d no existe", idL));
+            : response.buildStandardResponse(title, null, String.format("El estado de vacante con el id %d no existe", idL));
         
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
