@@ -2,12 +2,10 @@ package mx.edu.utez.pret.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,15 +14,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import mx.edu.utez.pret.config.JsonToMapConverter;
+import mx.edu.utez.pret.pojo.ConocimientoHabilidadPojo;
 
 @Entity
 @Table(name = "candidatos")
 @PrimaryKeyJoinColumn(name = "id")
 @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
+@TypeDefs({ @TypeDef(name = "json", typeClass = JsonStringType.class) })
 public class Candidato extends Usuario {
     @Column(nullable = true, name = "titulo_curricular")
     private String tituloCurricular;
@@ -36,8 +45,8 @@ public class Candidato extends Usuario {
     private String foto;
 
     @Column(nullable = true, name = "conocimientos_habilidades", columnDefinition = "json")
-    @Convert(converter = JsonToMapConverter.class)
-    private Map<String, Object> conocimientosHabilidades;
+    @Type(type = "json")
+    private ConocimientoHabilidadPojo conocimientosHabilidades;
 
     @OneToMany(mappedBy = "candidato")
     private List<Curso> cursos;
@@ -68,7 +77,7 @@ public class Candidato extends Usuario {
     public Candidato(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
             String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
             String tituloCurricular, String descripcionPerfil, String foto,
-            Map<String, Object> conocimientosHabilidades, List<Curso> cursos, List<Certificacion> certificaciones,
+            ConocimientoHabilidadPojo conocimientosHabilidades, List<Curso> cursos, List<Certificacion> certificaciones,
             List<ExperienciaLaboral> experienciasLaborales, List<Estudio> estudios, Set<Contacto> contactos,
             Set<Postulacion> postulaciones, Set<IdiomaCandidato> idiomas, Set<Vacante> vacantesFavoritas) {
         super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento,
