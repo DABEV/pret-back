@@ -41,7 +41,6 @@ public class UsuarioPojo {
     @NotBlank
     private String contrasena;
     
-    @NotNull
     private Boolean habilitado;
     
     @PhoneFormat
