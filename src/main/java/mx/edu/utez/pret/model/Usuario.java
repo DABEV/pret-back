@@ -1,5 +1,7 @@
 package mx.edu.utez.pret.model;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,6 +19,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +32,7 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class Usuario {
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -63,4 +68,40 @@ public class Usuario {
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(nullable = false, name = "usuario_id"), inverseJoinColumns = @JoinColumn(nullable = false, name = "rol_id"))
     private Set<Rol> roles;
+
+    // Overrides from UserDetails
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getPassword() {
+        return this.contrasena;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.correoElectronico;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return this.habilitado;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.habilitado;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return this.habilitado;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.habilitado;
+    }
 }
