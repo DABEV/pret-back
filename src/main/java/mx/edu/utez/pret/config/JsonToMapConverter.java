@@ -7,16 +7,11 @@ import java.util.Map;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Converter
 public class JsonToMapConverter implements AttributeConverter<String, Map<String, Object>> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JsonToMapConverter.class);
-
     @Override
     @SuppressWarnings("unchecked")
     public Map<String, Object> convertToDatabaseColumn(String attribute) {
@@ -28,7 +23,7 @@ public class JsonToMapConverter implements AttributeConverter<String, Map<String
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(attribute, HashMap.class);
         } catch (IOException e) {
-            LOGGER.error("Convert error while trying to convert string(JSON) to map data structure.");
+            // TODO: Not implemented
         }
 
         return new HashMap<>();
@@ -40,7 +35,6 @@ public class JsonToMapConverter implements AttributeConverter<String, Map<String
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.writeValueAsString(dbData);
         } catch (JsonProcessingException e) {
-            LOGGER.error("Could not convert map to json string.");
             return null;
         }
     }
