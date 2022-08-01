@@ -27,3 +27,6 @@ spring.jpa.hibernate.ddl-auto=update
 
 # Prefijo para todas las rutas en la API
 server.servlet.context-path=/api
+
+# Secret password to encrypt
+app.jwt.secret=<your_secret_password>

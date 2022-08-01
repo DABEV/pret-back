@@ -6,10 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "idiomas")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Idioma extends Catalogo {
     @OneToMany(mappedBy = "idioma")
     private Set<IdiomaCandidato> candidatos;
