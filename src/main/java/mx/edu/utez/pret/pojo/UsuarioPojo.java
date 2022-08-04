@@ -1,6 +1,7 @@
 package mx.edu.utez.pret.pojo;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
@@ -55,4 +56,11 @@ public class UsuarioPojo {
     private EstadoRepublicaPojo estadoRepublica;
 
     private Set<RolPojo> roles;
+
+    public void addRol(RolPojo rol) {
+        if (this.roles == null)
+            this.roles = new HashSet<>();
+        
+        roles.add(rol);
+    }
 }

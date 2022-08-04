@@ -18,7 +18,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 
 import lombok.AllArgsConstructor;
@@ -33,15 +33,18 @@ import mx.edu.utez.pret.pojo.ConocimientoHabilidadPojo;
 @PrimaryKeyJoinColumn(name = "id")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-@TypeDefs({ @TypeDef(name = "json", typeClass = JsonStringType.class) })
+@TypeDefs({
+    @TypeDef(name = "json", typeClass = JsonStringType.class),
+    @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
 public class Candidato extends Usuario {
     @Column(nullable = true, name = "titulo_curricular")
     private String tituloCurricular;
 
-    @Column(nullable = false, name = "descripcion_perfil", columnDefinition = "text null")
+    @Column(nullable = true, name = "descripcion_perfil", columnDefinition = "text null")
     private String descripcionPerfil;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String foto;
 
     @Column(nullable = true, name = "conocimientos_habilidades", columnDefinition = "json")

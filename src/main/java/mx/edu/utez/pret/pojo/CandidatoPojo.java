@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import mx.edu.utez.pret.validator.JobTitleFormat;
 import mx.edu.utez.pret.validator.ParagraphFormat;
-import javax.validation.constraints.NotBlank;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
@@ -22,10 +21,8 @@ public class CandidatoPojo extends UsuarioPojo {
     private String tituloCurricular;
     
     @ParagraphFormat
-    @NotBlank
     private String descripcionPerfil;
     
-    @NotBlank
     private String foto;
     
     private ConocimientoHabilidadPojo conocimientosHabilidades;

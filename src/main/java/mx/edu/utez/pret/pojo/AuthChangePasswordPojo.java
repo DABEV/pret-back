@@ -1,6 +1,5 @@
 package mx.edu.utez.pret.pojo;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -8,11 +7,13 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AuthRequestPojo {
+public class AuthChangePasswordPojo {
     @NotBlank 
-    @Email 
-    private String correoElectronico;
+    private String contrasena;
      
     @NotBlank
-    private String contrasena;
+    private String nuevaContrasena;
+     
+    @NotBlank
+    private String repetirContrasena;
 }
