@@ -1,6 +1,7 @@
 package mx.edu.utez.pret.config;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -35,9 +36,23 @@ public class Response {
      * Build a standard JSON to response in API method with a descriptive message
      * @param title
      * @param data
+     * @param message
      * @return A map representing JSON response
      */
     public Map<String, Object> buildStandardResponse (String title, Object data, String message) {
+        mainJson = buildStandardResponse(title, data);
+        mainJson.put(MESSAGE, message);
+        return mainJson;       
+    }
+
+    /**
+     * Build a standard JSON to response in API method with a descriptive message
+     * @param title
+     * @param data
+     * @param message
+     * @return A map representing JSON response
+     */
+    public <C> Map<String, Object> buildStandardResponse (String title, List<C> data, String message) {
         mainJson = buildStandardResponse(title, data);
         mainJson.put(MESSAGE, message);
         return mainJson;       

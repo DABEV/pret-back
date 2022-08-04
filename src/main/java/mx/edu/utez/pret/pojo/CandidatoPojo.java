@@ -2,20 +2,30 @@ package mx.edu.utez.pret.pojo;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import mx.edu.utez.pret.validator.JobTitleFormat;
+import mx.edu.utez.pret.validator.ParagraphFormat;
 
-@Data
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CandidatoPojo extends UsuarioPojo {
+    @JobTitleFormat
     private String tituloCurricular;
+    
+    @ParagraphFormat
     private String descripcionPerfil;
+    
     private String foto;
-    private Map<String, Object> conocimientosHabilidades;
+    
+    private ConocimientoHabilidadPojo conocimientosHabilidades;
     private List<CursoPojo> cursos;
     private List<CertificacionPojo> certificaciones;
     private List<ExperienciaLaboralPojo> experienciasLaborales;
@@ -29,7 +39,7 @@ public class CandidatoPojo extends UsuarioPojo {
     public CandidatoPojo(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
             String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
             String tituloCurricular, String descripcionPerfil, String foto,
-            Map<String, Object> conocimientosHabilidades, List<CursoPojo> cursos, List<CertificacionPojo> certificaciones,
+            ConocimientoHabilidadPojo conocimientosHabilidades, List<CursoPojo> cursos, List<CertificacionPojo> certificaciones,
             List<ExperienciaLaboralPojo> experienciasLaborales, List<EstudioPojo> estudios, Set<ContactoPojo> contactos,
             Set<PostulacionPojo> postulaciones, Set<IdiomaCandidatoPojo> idiomas, Set<VacantePojo> vacantesFavoritas) {
         super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento,

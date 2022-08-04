@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import mx.edu.utez.pret.config.Response;
+import mx.edu.utez.pret.pojo.ErrorPojo;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -99,22 +101,27 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response.buildStandardResponse("Token no soportado", "Ha ocurrido un error con la llave."), HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ResponseEntity<Object> handleDataIntegrityViolationException(HttpServletRequest req, DataIntegrityViolationException e) {
+        return new ResponseEntity<>(response.buildStandardResponse("Datos duplicados", 2005, "Favor de verificar los datos."), HttpStatus.BAD_REQUEST);
+    }
+
     /**
      * Get all error files without repeat.
      * 
      * @param List<FieldError> fieldErrors.
      * @return List with all errors without repeat.
      */
-    public List<Map<String, Object>> mapErrorFields (List<FieldError> fieldErrors) {
+    public List<ErrorPojo> mapErrorFields (List<FieldError> fieldErrors) {
         // Element in dictionary
-        Map<String, Object> answ;
+        ErrorPojo answ;
 
         // Response
-        List<Map<String, Object>> errorList = new ArrayList<>();
+        List<ErrorPojo> errorList = new ArrayList<>();
         
         // Dictionary
         // TreeMap keep the elements sorted
-        Map<Integer, Map<String, Object>> errorDictionary = new TreeMap<>();
+        Map<Integer, ErrorPojo> errorDictionary = new TreeMap<>();
 
         for (FieldError fe : fieldErrors) {
             answ = null;
@@ -122,13 +129,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             String code = fe.getCode();
 
             // Build a new element to dictionary
-            if (code != null)
+            if (code != null) {
                 switch (code) {
                     // 2001 - Required data
                     case "NotNull":
                     case "NotBlank":
                     key = 2001;
-                        answ = response.buildStandardResponse("Datos requeridos", key, "Uno o más campos requeridos se enviaron vacíos.");
+                        answ = new ErrorPojo(key, "Datos requeridos", "Uno o más campos requeridos se enviaron vacíos.");
                         break;
                     
                     // 2002 - Characters errors
@@ -136,27 +143,29 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                     case "MatriculaFormat":
                     case "ParagraphFormat":
                     case "NameFormat":
+                    case "JobTitleFormat":
                         key = 2002;
-                        answ = response.buildStandardResponse("Error de caracteres", key, "Algunos campos contienen caracteres no válidos.");
+                        answ = new ErrorPojo(key, "Error de caracteres", "Algunos campos contienen caracteres no válidos.");
                         break;
 
                     // 2004 - Invalid format
                     case "Size":
                     case "DateTimeFormat":
                     case "EmailFormat":
-                    case "PhoneNumberFormat":
+                    case "PhoneFormat":
                     case "Min":
                     case "Max":
                         key = 2004;
-                        answ = response.buildStandardResponse("Formato inválido", key, "Uno o más campos contiene un formato incorrecto.");
+                        answ = new ErrorPojo(key, "Formato inválido", "Uno o más campos contiene un formato incorrecto.");
                         break;
 
                     default:
                 }
 
-            // Check if type error exist in dictionary and the answer is not null
-            if (!errorDictionary.containsKey(key) && answ != null)
-                errorDictionary.put(key, answ);
+                // Check if type error exist in dictionary and the answer is not null
+                if (!errorDictionary.containsKey(key))
+                    errorDictionary.put(key, answ);
+            }
         }
 
         // Dictionary to a List
@@ -164,5 +173,4 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return errorList;
     }
-
 }

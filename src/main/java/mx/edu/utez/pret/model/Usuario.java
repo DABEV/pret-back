@@ -3,6 +3,7 @@ package mx.edu.utez.pret.model;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -69,6 +70,13 @@ public class Usuario implements UserDetails {
     @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(nullable = false, name = "usuario_id"), inverseJoinColumns = @JoinColumn(nullable = false, name = "rol_id"))
     private Set<Rol> roles;
 
+    public void addRol(Rol rol) {
+        if (this.roles == null)
+            this.roles = new HashSet<>();
+        
+        roles.add(rol);
+    }
+    
     // Overrides from UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
