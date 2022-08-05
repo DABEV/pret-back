@@ -30,3 +30,16 @@ server.servlet.context-path=/api
 
 # Secret password to encrypt
 app.jwt.secret=<your_secret_password>
+
+# Configuración de el envio de emails
+spring.mail.default-encoding=UTF-8
+spring.mail.protocol=smtp
+spring.mail.test-connection=false
+spring.mail.host=<host_smtp>
+spring.mail.port=<puerto_smpt>
+spring.mail.properties.mail.transport.protocol=smtp
+spring.mail.username=<email>
+spring.mail.password=<email_key>
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
