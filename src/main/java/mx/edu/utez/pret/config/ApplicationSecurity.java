@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import mx.edu.utez.pret.repository.UsuarioRepository;
 
@@ -61,6 +62,11 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CorsConfiguration corsConfig = new CorsConfiguration().applyPermitDefaultValues();
+        corsConfig.addAllowedMethod(HttpMethod.DELETE);
+        corsConfig.addAllowedMethod(HttpMethod.PUT);
+        corsConfig.addAllowedMethod(HttpMethod.PATCH);
+
         http
             .authorizeRequests()
             .antMatchers(
@@ -90,6 +96,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
             )
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .cors().configurationSource(request -> corsConfig)
             .and()
             .csrf().disable();
 
