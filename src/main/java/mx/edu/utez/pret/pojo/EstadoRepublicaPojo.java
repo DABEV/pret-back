@@ -9,8 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class EstadoRepublicaPojo extends CatalogoPojo {
     private List<CandidatoPojo> candidatos;

@@ -65,10 +65,12 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(
                 HttpMethod.POST, 
-                "/auth/login"
+                "/auth/login",
+                "/candidato/registrar",
+                "/reclutador/registrar"
             ).permitAll()
             .antMatchers(
-                HttpMethod.GET, 
+                HttpMethod.GET,
                 "/beneficio/**",
                 "/estado-republica/**",
                 "/estado-vacante/**",

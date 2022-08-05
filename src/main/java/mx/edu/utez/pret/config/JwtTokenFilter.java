@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,25 +51,31 @@ public class JwtTokenFilter extends OncePerRequestFilter {
  
     private String getAccessToken(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        return header.split(" ")[1].trim();
-    }
- 
-    private void setAuthenticationContext(String token, HttpServletRequest request) {
-        UserDetails userDetails = getUserDetails(token);
- 
-        UsernamePasswordAuthenticationToken
-            authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
- 
-        authentication.setDetails(
-            new WebAuthenticationDetailsSource().buildDetails(request));
- 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return header.substring("Bearer ".length());
     }
     
+    private void setAuthenticationContext(String token, HttpServletRequest request) {
+        UserDetails userDetails = getUserDetails(token);
+        
+        UsernamePasswordAuthenticationToken
+        authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+ 
+        authentication.setDetails(
+            new WebAuthenticationDetailsSource().buildDetails(request)
+        );
+            
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    public String getAccessToken(HttpHeaders headers) {
+        String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
+        return token.substring("Bearer ".length());
+    }
+        
     /**
      * Get User info from token
      */
-    private UserDetails getUserDetails(String token) {
+    public UserDetails getUserDetails(String token) {
         Usuario userDetails = new Usuario();
         String[] jwtSubject = jwtUtil.getSubject(token).split(",");
  
@@ -76,5 +83,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         userDetails.setCorreoElectronico(jwtSubject[1]);
  
         return userDetails;
+    }
+
+    /**
+     * Get User info from token
+     */
+    public Usuario getUserDetails(HttpHeaders headers) {
+        return (Usuario) getUserDetails(getAccessToken(headers));
     }
 }

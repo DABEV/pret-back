@@ -24,4 +24,9 @@ public class RolServiceImp implements RolService {
     public List<Rol> obtenerTodos() {
         return repository.findAll();
     }
+
+    @Override
+    public Rol buscarPorNombre(String nombre) {
+        return repository.findByNombre(nombre);
+    }
 }
