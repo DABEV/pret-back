@@ -30,7 +30,7 @@ public class EmailService {
         MimeMessage message = mailSender.createMimeMessage();
         Context context = new Context();
         context.setVariables(model);
-        String htmlBody = thyTemplateEngine.process("index.html", context);
+        String htmlBody = thyTemplateEngine.process("send-email.html", context);
 
         try {
             
