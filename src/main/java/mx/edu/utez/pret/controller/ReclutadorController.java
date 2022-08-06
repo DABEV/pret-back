@@ -57,6 +57,11 @@ public class ReclutadorController {
 
     private static final String ROLE = "ROL_RECLUTADOR"; 
 
+    // Response default data
+    private String title;
+    private String message;
+    private HttpStatus status;
+
     /**
      * Return specific data to response
      */
@@ -79,6 +84,10 @@ public class ReclutadorController {
     @PostMapping("/registrar")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> registrar (@Valid @RequestBody ReclutadorPojo reclutadorPojo) {
+        title = "Registrar reclutador";
+        message = "Error al guardar el reclutador";
+        ReclutadorPojo answ = null;
+        status = HttpStatus.OK;
         Reclutador reclutador = modelMapper.map(reclutadorPojo, Reclutador.class);
         
         reclutador.setHabilitado(true);
@@ -88,16 +97,23 @@ public class ReclutadorController {
         reclutador.addRol(rolServiceImp.buscarPorNombre(ROLE));
         reclutador = serviceImp.guardar(reclutador);
 
-        ReclutadorPojo answ = createPojoFromFormFields(reclutador);
+        if (reclutador != null && reclutador.getId() != null) {
+            answ = createPojoFromFormFields(reclutador);
+            title = "Reclutador registrado";
+            message = "El reclutador ha sido registrado satisfactoriamente";
+            status = HttpStatus.CREATED;
+        }
 
-        return new ResponseEntity<>(response.buildStandardResponse("Reclutador registrado", answ, "El reclutador ha sido registrado satisfactoriamente"), HttpStatus.CREATED);
+        return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), status);
     }
 
     @Transactional
     @PostMapping("/actualizar")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> actualizar (@RequestHeader HttpHeaders headers, @Valid @RequestBody ReclutadorPojo reclutadorPojo) {
-        Map<String, Object> answ = response.buildStandardResponse("Actualizar Reclutador", "No se realizo la actualización");
+        title = "Actualizar Reclutador";
+        message = "No se realizo la actualización";
+        ReclutadorPojo answ = null;
         Usuario usuario = jwtTokenFilter.getUserDetails(headers);
         Optional<Reclutador> reclutadorDb = serviceImp.obtenerPorId(usuario.getId());
         
@@ -115,16 +131,19 @@ public class ReclutadorController {
 
             reclutador = serviceImp.guardar(reclutador);
 
-            answ = response.buildStandardResponse("Reclutador actualizado", createPojoFromFormFields(reclutador), "Actualización exitosa");
+            title = "Reclutador actualizado";
+            message = "Actualización exitosa";
+            answ = createPojoFromFormFields(reclutador);
         }
 
-        return new ResponseEntity<>(answ, HttpStatus.OK);
+        return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/perfil", "/perfil/{id}"})
     @ResponseBody
     public ResponseEntity<Map<String, Object>> perfil (@RequestHeader HttpHeaders headers, @PathVariable Optional<Long> id) {
-        String message = "";
+        title = "Datos Reclutador";
+        message = "";
         Long idExists = null;
 
         if (id.isPresent()) {
@@ -143,6 +162,6 @@ public class ReclutadorController {
             message = String.format("El reclutador con el id %d no existe", idExists);
 
 
-        return new ResponseEntity<>(response.buildStandardResponse("Datos Reclutador", reclutadorPojo, message), HttpStatus.OK);
+        return new ResponseEntity<>(response.buildStandardResponse(title, reclutadorPojo, message), HttpStatus.OK);
     }
 }
