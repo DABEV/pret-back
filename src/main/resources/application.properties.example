@@ -30,7 +30,10 @@ server.servlet.context-path=/api
 
 # Secret password to encrypt (512 bits)
 app.jwt.secret=<your_secret_password>
-
+<<<<<<<<< Temporary merge branch 1
+# Expiration time (miliseconds)
+app.jwt.expiration=<miliseconds>
+=========
 
 # Configuración de el envio de emails
 spring.mail.default-encoding=UTF-8
@@ -44,7 +47,4 @@ spring.mail.password=<email_key>
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=true
-
-# Expiration time (miliseconds)
-app.jwt.expiration=<miliseconds>
->>>>>>> f84015a5a8d0bbdffbcf9f26fb8f870aff01802c
+>>>>>>>>> Temporary merge branch 2
