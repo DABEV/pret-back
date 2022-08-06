@@ -153,6 +153,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                     case "DateTimeFormat":
                     case "EmailFormat":
                     case "PhoneFormat":
+                    case "PasswordFormat":
                     case "Min":
                     case "Max":
                         key = 2004;
