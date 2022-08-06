@@ -12,7 +12,7 @@ public class TemplateConfiguration {
     @Bean
     public ITemplateResolver thymeleafClassLoaderTemplateResolver(){
         ClassLoaderTemplateResolver templateResolver =new ClassLoaderTemplateResolver();
-        templateResolver.setPrefix("templates/");
+        templateResolver.setPrefix("templates/email/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
