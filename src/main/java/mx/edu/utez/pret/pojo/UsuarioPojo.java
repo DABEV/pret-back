@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mx.edu.utez.pret.validator.NameFormat;
+import mx.edu.utez.pret.validator.PasswordFormat;
 import mx.edu.utez.pret.validator.PhoneFormat;
 
 @Data
@@ -40,6 +41,7 @@ public class UsuarioPojo {
     private String correoElectronico;
     
     @NotBlank
+    @PasswordFormat
     private String contrasena;
     
     private Boolean habilitado;
