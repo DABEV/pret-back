@@ -12,16 +12,18 @@ import mx.edu.utez.pret.model.Usuario;
 
 @Component
 public class JwtTokenUtil {
-    private static final long EXPIRE_DURATION = 24 * 60 * 60 * 1000; // 24 hour
      
     @Value("${app.jwt.secret}")
     private String secretKey;
-     
-    public String generateAccessToken(Usuario usuario) {
+
+    @Value("${app.jwt.expiration}")
+    private Long expireDuration;
+
+    public String generateAccessToken(Usuario usuario) {        
         return Jwts.builder()
             .setSubject(String.format("%s,%s", usuario.getId(), usuario.getCorreoElectronico()))
-            .setIssuedAt(new Date())
-            .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
+            .setIssuedAt(new Date(System.currentTimeMillis()))
+            .setExpiration(new Date(System.currentTimeMillis() + expireDuration))
             .signWith(SignatureAlgorithm.HS512, secretKey)
             .compact();
     }

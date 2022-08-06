@@ -14,9 +14,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "estados_republica")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 public class EstadoRepublica extends Catalogo {
     @OneToMany(mappedBy = "estadoRepublica")
     private List<Candidato> candidatos;

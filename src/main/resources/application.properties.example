@@ -28,8 +28,9 @@ spring.jpa.hibernate.ddl-auto=update
 # Prefijo para todas las rutas en la API
 server.servlet.context-path=/api
 
-# Secret password to encrypt
+# Secret password to encrypt (512 bits)
 app.jwt.secret=<your_secret_password>
+
 
 # Configuración de el envio de emails
 spring.mail.default-encoding=UTF-8
@@ -43,3 +44,7 @@ spring.mail.password=<email_key>
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=true
+
+# Expiration time (miliseconds)
+app.jwt.expiration=<miliseconds>
+>>>>>>> f84015a5a8d0bbdffbcf9f26fb8f870aff01802c

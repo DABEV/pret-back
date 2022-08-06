@@ -12,14 +12,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "reclutadores")
 @PrimaryKeyJoinColumn(name = "id")
 @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 public class Reclutador extends Usuario {
     @ManyToOne
     @JoinColumn(nullable = false, name = "puesto_id")
