@@ -50,8 +50,16 @@ public class AuthController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    // Response default data
+    private String title;
+    private Boolean data;
+    private String message;
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody @Valid AuthRequestPojo request) {
+        title = "Error en la autenticación";
+        AuthResponsePojo responsePojo = null;
+
         Authentication authentication = authManager.authenticate(
             new UsernamePasswordAuthenticationToken(request.getCorreoElectronico(), request.getContrasena())
         );
@@ -60,16 +68,20 @@ public class AuthController {
 
         String accessToken = jwtUtil.generateAccessToken(usuario);
 
-        AuthResponsePojo responsePojo = new AuthResponsePojo(usuario.getCorreoElectronico(), accessToken);
+        if (accessToken != null && !accessToken.isEmpty() && !accessToken.isBlank()) {
+            responsePojo = new AuthResponsePojo(usuario.getCorreoElectronico(), accessToken);
+            title = "Autenticación exitosa";
+        }
             
-        return new ResponseEntity<>(response.buildStandardResponse("Autenticación exitosa", responsePojo), HttpStatus.OK);
+        return new ResponseEntity<>(response.buildStandardResponse(title, responsePojo), HttpStatus.OK);
     }
 
     @Transactional
     @PostMapping("/change-password")
     public ResponseEntity<Map<String, Object>> changePassword(@RequestHeader HttpHeaders headers, @RequestBody @Valid AuthChangePasswordPojo request) {
-        String title = "Cambiar Contraseña";
-        String message = "Error al cambiar la contraseña";
+        title = "Cambiar Contraseña";
+        message = "Error al cambiar la contraseña";
+        data = false;
 
         Usuario uDb = null;
         Usuario usuario = jwtTokenFilter.getUserDetails(headers);
@@ -82,10 +94,10 @@ public class AuthController {
             
             uDb.setContrasena(passwordEncoder.encode(request.getNuevaContrasena()));
             usuarioRepository.save(uDb);
-
             message = "Se ha actualizado la contraseña exitosamente";
+            data = true;
         }
             
-        return new ResponseEntity<>(response.buildStandardResponse(title, null, message), HttpStatus.OK);
+        return new ResponseEntity<>(response.buildStandardResponse(title, data, message), HttpStatus.OK);
     }
 }

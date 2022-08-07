@@ -55,6 +55,11 @@ public class CandidatoController {
 
     private static final String ROLE = "ROL_CANDIDATO"; 
 
+    // Response default data
+    private String title;
+    private String message;
+    private HttpStatus status;
+
     /**
      * Return specific data to response
      */
@@ -78,6 +83,10 @@ public class CandidatoController {
     @PostMapping("/registrar")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> registrar (@Valid @RequestBody CandidatoPojo candidatoPojo) {
+        title = "Registrar candidato";
+        message = "Error al guardar el candidato";
+        CandidatoPojo answ = null;
+        status = HttpStatus.OK;
         Candidato candidato = modelMapper.map(candidatoPojo, Candidato.class);
         
         candidato.setHabilitado(true);
@@ -87,16 +96,23 @@ public class CandidatoController {
         candidato.addRol(rolServiceImp.buscarPorNombre(ROLE));
         candidato = serviceImp.guardar(candidato);
 
-        CandidatoPojo answ = createPojoFromFormFields(candidato);
+        if (candidato != null && candidato.getId() != null) {
+            answ = createPojoFromFormFields(candidato);
+            title = "Candidato registrado";
+            message = "El candidato ha sido registrado satisfactoriamente";
+            status = HttpStatus.CREATED;
+        }
 
-        return new ResponseEntity<>(response.buildStandardResponse("Candidato registrado", answ, "El candidato ha sido registrado satisfactoriamente"), HttpStatus.CREATED);
+        return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), status);
     }
 
     @Transactional
     @PostMapping("/actualizar")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> actualizar (@RequestHeader HttpHeaders headers, @Valid @RequestBody CandidatoPojo candidatoPojo) {
-        Map<String, Object> answ = response.buildStandardResponse("Actualizar Candidato", "No se realizo la actualización");
+        title = "Actualizar Candidato";
+        message = "No se realizo la actualización";
+        CandidatoPojo answ = null;
         Usuario usuario = jwtTokenFilter.getUserDetails(headers);
         Optional<Candidato> candidatoDb = serviceImp.obtenerPorId(usuario.getId());
         
@@ -115,17 +131,19 @@ public class CandidatoController {
             candidato.setConocimientosHabilidades(candidatoPojo.getConocimientosHabilidades());
 
             candidato = serviceImp.guardar(candidato);
-
-            answ = response.buildStandardResponse("Candidato actualizado", createPojoFromFormFields(candidato), "Actualización exitosa");
+            title = "Candidato actualizado";
+            message = "Actualización exitosa";
+            answ = createPojoFromFormFields(candidato);
         }
 
-        return new ResponseEntity<>(answ, HttpStatus.OK);
+        return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/perfil", "/perfil/{id}"})
     @ResponseBody
     public ResponseEntity<Map<String, Object>> perfil (@RequestHeader HttpHeaders headers, @PathVariable Optional<Long> id) {
-        String message = "";
+        title = "Datos Candidato";
+        message = "";
         Long idExists = null;
 
         if (id.isPresent()) {
@@ -143,6 +161,6 @@ public class CandidatoController {
         else 
             message = String.format("El candidato con el id %d no existe", idExists);
 
-        return new ResponseEntity<>(response.buildStandardResponse("Datos Candidato", candidatoPojo, message), HttpStatus.OK);
+        return new ResponseEntity<>(response.buildStandardResponse(title, candidatoPojo, message), HttpStatus.OK);
     }
 }
