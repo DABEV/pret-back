@@ -45,3 +45,6 @@ spring.mail.password=<email_key>
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=true
+
+# Email que se utilizara para el envio de correos
+app.email=<email>

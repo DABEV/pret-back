@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,8 @@ public class EmailService {
     @Autowired
     private SpringTemplateEngine thyTemplateEngine;
 
-    private final String toFrom = "pretproject2022@gmail.com";
+    @Value("${app.email}")
+    private String email;
 
     public MailResponse sendEmail(MailRequest request, Map<String, Object> model){
         MailResponse response = new MailResponse();
@@ -37,7 +39,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setTo(request.getToEmail());
             helper.setSubject(request.getSubject());
-            helper.setFrom(toFrom);
+            helper.setFrom(email);
             helper.setText(htmlBody, true);
             mailSender.send(message);
 
