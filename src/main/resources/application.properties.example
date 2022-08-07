@@ -32,3 +32,19 @@ server.servlet.context-path=/api
 app.jwt.secret=<your_secret_password>
 # Expiration time (miliseconds)
 app.jwt.expiration=<miliseconds>
+
+# Configuración de el envio de emails
+spring.mail.default-encoding=UTF-8
+spring.mail.protocol=smtp
+spring.mail.test-connection=false
+spring.mail.host=<host_smtp>
+spring.mail.port=<puerto_smpt>
+spring.mail.properties.mail.transport.protocol=smtp
+spring.mail.username=<email>
+spring.mail.password=<email_key>
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+
+# Email que se utilizara para el envio de correos
+app.email=<email>
