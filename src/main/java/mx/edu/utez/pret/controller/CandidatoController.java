@@ -124,7 +124,7 @@ public class CandidatoController {
             candidato.setApellidoMaterno(candidatoPojo.getApellidoMaterno());
             candidato.setTelefono(candidatoPojo.getTelefono());
             candidato.setFechaNacimiento(candidatoPojo.getFechaNacimiento());
-            candidato.setEstadoRepublica(modelMapper.map(candidato.getEstadoRepublica(), EstadoRepublica.class));
+            candidato.setEstadoRepublica(modelMapper.map(candidatoPojo.getEstadoRepublica(), EstadoRepublica.class));
             candidato.setTituloCurricular(candidatoPojo.getTituloCurricular());
             candidato.setDescripcionPerfil(candidatoPojo.getDescripcionPerfil());
             candidato.setFoto(candidatoPojo.getFoto());
