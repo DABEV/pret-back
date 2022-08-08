@@ -125,6 +125,7 @@ public class ReclutadorController {
             reclutador.setApellidoMaterno(reclutadorPojo.getApellidoMaterno());
             reclutador.setTelefono(reclutadorPojo.getTelefono());
             reclutador.setFechaNacimiento(reclutadorPojo.getFechaNacimiento());
+            reclutador.setEstadoRepublica(modelMapper.map(reclutadorPojo.getEstadoRepublica(), EstadoRepublica.class));
             reclutador.setPuesto(modelMapper.map(reclutadorPojo.getPuesto(), Puesto.class));
             reclutador.setNombreEmpresa(reclutadorPojo.getNombreEmpresa());
             reclutador.setEstadoRepublicaEmpresa(modelMapper.map(reclutadorPojo.getEstadoRepublicaEmpresa(), EstadoRepublica.class));
