@@ -30,6 +30,9 @@ public class Reclutador extends Usuario {
 
     @Column(nullable = false, name = "nombre_empresa", length = 100)
     private String nombreEmpresa;
+
+    @Column(nullable = true)
+    private String foto;
     
     @ManyToOne
     @JoinColumn(nullable = false, name = "estado_republica_empresa_id")
@@ -41,11 +44,12 @@ public class Reclutador extends Usuario {
     @Builder(buildMethodName = "reclutadorBuilder")
     public Reclutador(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
             String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
-            Puesto puesto, String nombreEmpresa, EstadoRepublica estadoRepublicaEmpresa, List<Vacante> vacantes) {
+            Puesto puesto, String nombreEmpresa, String foto, EstadoRepublica estadoRepublicaEmpresa, List<Vacante> vacantes) {
         super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado ,telefono, fechaNacimiento,
                 estadoRepublica, roles);
         this.puesto = puesto;
         this.nombreEmpresa = nombreEmpresa;
+        this.foto = foto;
         this.estadoRepublicaEmpresa = estadoRepublicaEmpresa;
         this.vacantes = vacantes;
     }
