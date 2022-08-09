@@ -91,7 +91,6 @@ public class AuthController {
             uDb = usuarioDb.get();
         
         if (uDb != null && passwordEncoder.matches(request.getContrasena(),  uDb.getContrasena()) && request.getNuevaContrasena().equals(request.getRepetirContrasena())) {
-            
             uDb.setContrasena(passwordEncoder.encode(request.getNuevaContrasena()));
             usuarioRepository.save(uDb);
             message = "Se ha actualizado la contraseña exitosamente";
