@@ -26,6 +26,7 @@ import mx.edu.utez.pret.config.Response;
 import mx.edu.utez.pret.model.Candidato;
 import mx.edu.utez.pret.model.EstadoRepublica;
 import mx.edu.utez.pret.model.Usuario;
+import mx.edu.utez.pret.pojo.AuthUploadPhotoPojo;
 import mx.edu.utez.pret.pojo.CandidatoPojo;
 import mx.edu.utez.pret.pojo.EstadoRepublicaPojo;
 import mx.edu.utez.pret.service.CandidatoServiceImp;
@@ -59,6 +60,7 @@ public class CandidatoController {
     private String title;
     private String message;
     private HttpStatus status;
+    private Boolean data;
 
     /**
      * Return specific data to response
@@ -124,7 +126,7 @@ public class CandidatoController {
             candidato.setApellidoMaterno(candidatoPojo.getApellidoMaterno());
             candidato.setTelefono(candidatoPojo.getTelefono());
             candidato.setFechaNacimiento(candidatoPojo.getFechaNacimiento());
-            candidato.setEstadoRepublica(modelMapper.map(candidato.getEstadoRepublica(), EstadoRepublica.class));
+            candidato.setEstadoRepublica(modelMapper.map(candidatoPojo.getEstadoRepublica(), EstadoRepublica.class));
             candidato.setTituloCurricular(candidatoPojo.getTituloCurricular());
             candidato.setDescripcionPerfil(candidatoPojo.getDescripcionPerfil());
             candidato.setFoto(candidatoPojo.getFoto());
@@ -162,5 +164,27 @@ public class CandidatoController {
             message = String.format("El candidato con el id %d no existe", idExists);
 
         return new ResponseEntity<>(response.buildStandardResponse(title, candidatoPojo, message), HttpStatus.OK);
+    }
+
+    @PostMapping("/actualizar-foto")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> actualizarFoto (@RequestHeader HttpHeaders headers, @Valid @RequestBody AuthUploadPhotoPojo request) {
+        title = "Actualizar foto del candidato";
+        message = "No se realizo la actualización";
+        data = false;
+        Usuario usuario = jwtTokenFilter.getUserDetails(headers);
+        Optional<Candidato> candidatoDb = serviceImp.obtenerPorId(usuario.getId());
+        
+        if (candidatoDb.isPresent() && usuario.getId() != null) {
+            Candidato candidato = candidatoDb.get();
+
+            candidato.setFoto(request.getFoto());
+
+            title = "Foto del candidato actualizada";
+            message = "Actualización exitosa";
+            data = serviceImp.guardar(candidato) != null;
+        }
+
+        return new ResponseEntity<>(response.buildStandardResponse(title, data, message), HttpStatus.OK);
     }
 }

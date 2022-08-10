@@ -26,6 +26,8 @@ public class ReclutadorPojo extends UsuarioPojo {
     @ParagraphFormat
     private String nombreEmpresa;
 
+    private String foto;
+
     @NotNull
     private EstadoRepublicaPojo estadoRepublicaEmpresa;
     
@@ -34,10 +36,11 @@ public class ReclutadorPojo extends UsuarioPojo {
     @Builder(buildMethodName = "reclutadorBuilder")
     public ReclutadorPojo(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
         String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
-        PuestoPojo puesto, String nombreEmpresa, EstadoRepublicaPojo estadoRepublicaEmpresa, List<VacantePojo> vacantes) {
+        PuestoPojo puesto, String nombreEmpresa, String foto, EstadoRepublicaPojo estadoRepublicaEmpresa, List<VacantePojo> vacantes) {
         super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento,
         estadoRepublica, roles);
         this.puesto = puesto;
+        this.foto = foto;
         this.nombreEmpresa = nombreEmpresa;
         this.estadoRepublicaEmpresa = estadoRepublicaEmpresa;
         this.vacantes = vacantes;

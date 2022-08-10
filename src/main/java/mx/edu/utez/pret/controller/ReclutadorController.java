@@ -27,6 +27,7 @@ import mx.edu.utez.pret.model.EstadoRepublica;
 import mx.edu.utez.pret.model.Puesto;
 import mx.edu.utez.pret.model.Reclutador;
 import mx.edu.utez.pret.model.Usuario;
+import mx.edu.utez.pret.pojo.AuthUploadPhotoPojo;
 import mx.edu.utez.pret.pojo.EstadoRepublicaPojo;
 import mx.edu.utez.pret.pojo.PuestoPojo;
 import mx.edu.utez.pret.pojo.ReclutadorPojo;
@@ -61,6 +62,7 @@ public class ReclutadorController {
     private String title;
     private String message;
     private HttpStatus status;
+    private Boolean data;
 
     /**
      * Return specific data to response
@@ -76,6 +78,7 @@ public class ReclutadorController {
             .estadoRepublica(modelMapper.map(reclutador.getEstadoRepublica(), EstadoRepublicaPojo.class))
             .puesto(modelMapper.map(reclutador.getPuesto(), PuestoPojo.class))
             .nombreEmpresa(reclutador.getNombreEmpresa())
+            .foto(reclutador.getFoto())
             .estadoRepublicaEmpresa(modelMapper.map(reclutador.getEstadoRepublicaEmpresa(), EstadoRepublicaPojo.class))
             .reclutadorBuilder();
     }
@@ -125,8 +128,10 @@ public class ReclutadorController {
             reclutador.setApellidoMaterno(reclutadorPojo.getApellidoMaterno());
             reclutador.setTelefono(reclutadorPojo.getTelefono());
             reclutador.setFechaNacimiento(reclutadorPojo.getFechaNacimiento());
+            reclutador.setEstadoRepublica(modelMapper.map(reclutadorPojo.getEstadoRepublica(), EstadoRepublica.class));
             reclutador.setPuesto(modelMapper.map(reclutadorPojo.getPuesto(), Puesto.class));
             reclutador.setNombreEmpresa(reclutadorPojo.getNombreEmpresa());
+            reclutador.setFoto(reclutadorPojo.getFoto());
             reclutador.setEstadoRepublicaEmpresa(modelMapper.map(reclutadorPojo.getEstadoRepublicaEmpresa(), EstadoRepublica.class));
 
             reclutador = serviceImp.guardar(reclutador);
@@ -163,5 +168,27 @@ public class ReclutadorController {
 
 
         return new ResponseEntity<>(response.buildStandardResponse(title, reclutadorPojo, message), HttpStatus.OK);
+    }
+
+    @PostMapping("/actualizar-foto")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> actualizarFoto (@RequestHeader HttpHeaders headers, @Valid @RequestBody AuthUploadPhotoPojo request) {
+        title = "Actualizar foto del reclutador";
+        message = "No se realizo la actualización";
+        data = false;
+        Usuario usuario = jwtTokenFilter.getUserDetails(headers);
+        Optional<Reclutador> reclutadorDb = serviceImp.obtenerPorId(usuario.getId());
+        
+        if (reclutadorDb.isPresent() && usuario.getId() != null) {
+            Reclutador reclutador = reclutadorDb.get();
+
+            reclutador.setFoto(request.getFoto());
+
+            title = "Foto del reclutador actualizada";
+            message = "Actualización exitosa";
+            data = serviceImp.guardar(reclutador) != null;
+        }
+
+        return new ResponseEntity<>(response.buildStandardResponse(title, data, message), HttpStatus.OK);
     }
 }
