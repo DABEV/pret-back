@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.edu.utez.pret.model.Idioma;
 import mx.edu.utez.pret.model.IdiomaCandidato;
 import mx.edu.utez.pret.model.IdiomaCandidatoId;
 import mx.edu.utez.pret.repository.IdiomaCandidatoRepository;
@@ -36,7 +35,7 @@ public class IdiomaCandidatoServiceImp implements IdiomaCandidatoService {
 
     @Override
     public Boolean deleteByCandidatoIdAndidiomaId(long candidato, long idioma) {
-        Optional<IdiomaCandidato> idiomaCandidato = repository.selectByCandidatoIdAndIdiomaId(candidato, idioma);
+        Optional<IdiomaCandidato> idiomaCandidato = repository.findByCandidatoIdAndIdiomaId(candidato, idioma);
 
         if(idiomaCandidato.isPresent()){
             repository.delete(idiomaCandidato.get());
