@@ -9,4 +9,5 @@ public interface IdiomaCandidatoService {
     Optional<IdiomaCandidato> obtenerPorId(IdiomaCandidatoId id);
     IdiomaCandidato guardar(IdiomaCandidato contacto);
     Boolean eliminar(IdiomaCandidatoId id);
+    Boolean deleteByCandidatoIdAndidiomaId(long candidato, long id);
 }

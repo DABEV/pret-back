@@ -108,16 +108,14 @@ public class IdiomaCandidatoController {
             for (IdiomaCandidato idiomaCandidato : candidato.getIdiomas()) {
                 if (idiomaCandidato.getId().getIdiomaId() == idioma.getId()) {
                     answ = idiomaCandidato.getIdioma();
-                    serviceImp.eliminar(idiomaCandidato.getId());
+                    serviceImp.deleteByCandidatoIdAndidiomaId(candidato.getId(), idiomaCandidato.getIdioma().getId());
                     message = "El idioma del candidato ha sido eliminada satisfactoriamente";
                     break;
 
                 }
             }
         }
-        IdiomaCandidatoPojo pojo = modelMapper.map(answ, IdiomaCandidatoPojo.class);
-
-        return new ResponseEntity<>(response.buildStandardResponse(title, pojo, message), status);
+        return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), status);
 
     }
 
