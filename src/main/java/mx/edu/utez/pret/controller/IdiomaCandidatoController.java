@@ -90,13 +90,12 @@ public class IdiomaCandidatoController {
     }
 
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<Map<String, Object>> borrar(@RequestHeader HttpHeaders headers,
+    public ResponseEntity<Map<String, Object>> eliminar(@RequestHeader HttpHeaders headers,
             @PathVariable Long id) {
 
         title = "Eliminar idioma del candidato";
         message = "Error al eliminar el idioma del candidato";
         status = HttpStatus.OK;
-        Idioma answ = null;
 
         Usuario usuario = jwtTokenFilter.getUserDetails(headers);
         Optional<Candidato> candidatoDb = serviceCandidatoImp.obtenerPorId(usuario.getId());
@@ -104,12 +103,11 @@ public class IdiomaCandidatoController {
         if (candidatoDb.isPresent() && idiomaDb.isPresent()) {
             Candidato candidato = candidatoDb.get();
             Idioma idioma = idiomaDb.get();
-            serviceImp.deleteByCandidatoIdAndidiomaId(candidato.getId(), idioma.getId());
-            answ = idioma;
-            message = "El idioma del candidato ha sido eliminada satisfactoriamente";
+            serviceImp.deleteByCandidatoAndIdioma(candidato, idioma);
+            message = "El idioma del candidato ha sido eliminado satisfactoriamente";
 
         }
-        return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), status);
+        return new ResponseEntity<>(response.buildStandardResponse(title, message), status);
 
     }
 
