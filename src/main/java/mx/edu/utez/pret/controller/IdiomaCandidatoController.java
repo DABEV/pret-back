@@ -104,16 +104,10 @@ public class IdiomaCandidatoController {
         if (candidatoDb.isPresent() && idiomaDb.isPresent()) {
             Candidato candidato = candidatoDb.get();
             Idioma idioma = idiomaDb.get();
+            serviceImp.deleteByCandidatoIdAndidiomaId(candidato.getId(), idioma.getId());
+            answ = idioma;
+            message = "El idioma del candidato ha sido eliminada satisfactoriamente";
 
-            for (IdiomaCandidato idiomaCandidato : candidato.getIdiomas()) {
-                if (idiomaCandidato.getId().getIdiomaId() == idioma.getId()) {
-                    answ = idiomaCandidato.getIdioma();
-                    serviceImp.deleteByCandidatoIdAndidiomaId(candidato.getId(), idiomaCandidato.getIdioma().getId());
-                    message = "El idioma del candidato ha sido eliminada satisfactoriamente";
-                    break;
-
-                }
-            }
         }
         return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), status);
 
