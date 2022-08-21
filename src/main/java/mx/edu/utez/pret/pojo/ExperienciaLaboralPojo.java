@@ -2,16 +2,28 @@ package mx.edu.utez.pret.pojo;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ExperienciaLaboralPojo {
     private Long id;
+    @NotNull
     private CandidatoPojo candidato;
+    @NotBlank
     private String puesto;
+    @NotBlank
     private Date fechaInicio;
+    @NotBlank
     private Date fechaFin;
+    @NotBlank
     private String actividadesRealizadas;
 }
