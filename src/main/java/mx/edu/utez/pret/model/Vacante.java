@@ -1,21 +1,9 @@
 package mx.edu.utez.pret.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,7 +32,7 @@ public class Vacante {
     private String tipo;
 
     @Column(nullable = false, name = "fecha_inicio")
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
 
     @Column(nullable = false, name = "sueldo_min")
     private Integer sueldoMin;
@@ -56,7 +44,7 @@ public class Vacante {
     private String periodoPago;
 
     @Column(nullable = false, name = "fecha_vigencia")
-    private Date fechaVigencia;
+    private LocalDate fechaVigencia;
 
     @OneToMany(mappedBy = "vacante")
     private Set<Postulacion> postulaciones;

@@ -1,0 +1,69 @@
+### Registrar
+POST {{host}}/reclutador/registrar
+Content-Type: application/json
+
+{
+  "nombre": "",
+  "apellidoPaterno": "",
+  "correoElectronico": "",
+  "contrasena": "",
+  "telefono": "",
+  "fechaNacimiento": "",
+  "estadoRepublica": {
+    "id": 0
+  },
+  "puesto": {
+    "id": 0
+  },
+  "nombreEmpresa": "",
+  "estadoRepublicaEmpresa": {
+    "id": 0
+  }
+}
+
+### Actualizar
+POST {{host}}/reclutador/actualizar
+Content-Type: application/json
+Authorization: Bearer {{auth_reclutador}}
+
+{
+  "nombre": "",
+  "apellidoPaterno": "",
+  "correoElectronico": "",
+  "contrasena": "",
+  "telefono": "",
+  "fechaNacimiento": "",
+  "estadoRepublica": {
+    "id": 0
+  },
+  "puesto": {
+    "id": 0
+  },
+  "foto": "",
+  "nombreEmpresa": "",
+  "estadoRepublicaEmpresa": {
+    "id": 0
+  }
+}
+
+### Perfil
+GET {{host}}/reclutador/perfil
+Content-Type: application/json
+Authorization: Bearer {{auth_reclutador}}
+
+{}
+
+### Perfil con id
+GET {{host}}/reclutador/perfil/2
+Content-Type: application/json
+
+{}
+
+### Actualizar foto
+POST {{host}}/reclutador/actualizar-foto
+Content-Type: application/json
+Authorization: Bearer {{auth_reclutador}}
+
+{
+  "foto": ""
+}

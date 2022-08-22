@@ -1,0 +1,69 @@
+### Registrar
+POST {{host}}/candidato/registrar
+Content-Type: application/json
+
+{
+  "nombre": "",
+  "apellidoPaterno": "",
+  "apellidoMaterno": "",
+  "correoElectronico": "",
+  "contrasena": "",
+  "telefono": "",
+  "fechaNacimiento": "",
+  "estadoRepublica": {
+    "id": 0
+  },
+  "descripcionPerfil": "",
+  "foto": "",
+  "conocimientosHabilidades": {
+    "conocimientos": ["Con1", "Con2"],
+    "habilidades": ["Hab1", "Hab2"]
+  }
+}
+
+### Actualizar
+POST {{host}}/candidato/actualizar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "nombre": "",
+  "apellidoPaterno": "",
+  "apellidoMaterno": "",
+  "correoElectronico": "",
+  "contrasena": "",
+  "telefono": "",
+  "fechaNacimiento": "",
+  "estadoRepublica": {
+    "id": 0
+  },
+  "tituloCurricular": "",
+  "descripcionPerfil": "",
+  "foto": "",
+  "conocimientosHabilidades": {
+    "conocimientos": ["Con3", "Con4"],
+    "habilidades": ["Hab3", "Hab4"]
+  }
+}
+
+### Perfil
+GET {{host}}/candidato/perfil
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{}
+
+### Perfil con id
+GET {{host}}/candidato/perfil/2
+Content-Type: application/json
+
+{}
+
+### Actualizar foto
+POST {{host}}/candidato/actualizar-foto
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "foto": ""
+}

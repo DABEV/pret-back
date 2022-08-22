@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.pojo;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -36,12 +36,13 @@ public class CandidatoPojo extends UsuarioPojo {
     private Set<VacantePojo> vacantesFavoritas;
     
     @Builder(buildMethodName = "candidatoBuilder")
-    public CandidatoPojo(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
-            String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
-            String tituloCurricular, String descripcionPerfil, String foto,
-            ConocimientoHabilidadPojo conocimientosHabilidades, List<CursoPojo> cursos, List<CertificacionPojo> certificaciones,
-            List<ExperienciaLaboralPojo> experienciasLaborales, List<EstudioPojo> estudios, Set<ContactoPojo> contactos,
-            Set<PostulacionPojo> postulaciones, Set<IdiomaCandidatoPojo> idiomas, Set<VacantePojo> vacantesFavoritas) {
+    public CandidatoPojo(
+        long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
+        String contrasena, Boolean habilitado, String telefono, LocalDate fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
+        String tituloCurricular, String descripcionPerfil, String foto,
+        ConocimientoHabilidadPojo conocimientosHabilidades, List<CursoPojo> cursos, List<CertificacionPojo> certificaciones,
+        List<ExperienciaLaboralPojo> experienciasLaborales, List<EstudioPojo> estudios, Set<ContactoPojo> contactos,
+        Set<PostulacionPojo> postulaciones, Set<IdiomaCandidatoPojo> idiomas, Set<VacantePojo> vacantesFavoritas) {
         super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento,
                 estadoRepublica, roles);
         this.tituloCurricular = tituloCurricular;

@@ -3,7 +3,7 @@
 
 # En caso del error Public Key Retrieval is not allowed de MySQL, agregar como parámetro allowPublicKeyRetrieval=true a la cadena de conexión
 # Establece la conexion con la BD, sino existe la DB, entonces la crea
-spring.datasource.url=jdbc:mysql://<server>:<port>/<db_name>?autoReconnect=true&useSSL=false&createDatabaseIfNotExist=true
+spring.datasource.url=jdbc:mysql://<server>:8080/<db_name>?autoReconnect=true&useSSL=false&createDatabaseIfNotExist=true
 spring.datasource.username=<user>
 spring.datasource.password=<password>
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
@@ -24,6 +24,8 @@ spring.jpa.generate-ddl=true
 # create = crea la base de datos y destruye los datos previos
 # update = actualiza la base de datos si es necesario
 spring.jpa.hibernate.ddl-auto=update
+
+spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
 
 # Prefijo para todas las rutas en la API
 server.servlet.context-path=/api
@@ -48,3 +50,6 @@ spring.mail.properties.mail.smtp.starttls.required=true
 
 # Email que se utilizara para el envio de correos
 app.email=<email>
+
+# URL to your front
+app.front-end=<URL_FRONT_END>
