@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.pojo;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,7 +52,7 @@ public class UsuarioPojo {
     private String telefono;
     
     @NotNull
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     
     @NotNull
     private EstadoRepublicaPojo estadoRepublica;

@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.pojo;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -35,10 +35,9 @@ public class ReclutadorPojo extends UsuarioPojo {
 
     @Builder(buildMethodName = "reclutadorBuilder")
     public ReclutadorPojo(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
-        String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
+        String contrasena, Boolean habilitado, String telefono, LocalDate fechaNacimiento, EstadoRepublicaPojo estadoRepublica, Set<RolPojo> roles,
         PuestoPojo puesto, String nombreEmpresa, String foto, EstadoRepublicaPojo estadoRepublicaEmpresa, List<VacantePojo> vacantes) {
-        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento,
-        estadoRepublica, roles);
+        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento, estadoRepublica, roles);
         this.puesto = puesto;
         this.foto = foto;
         this.nombreEmpresa = nombreEmpresa;

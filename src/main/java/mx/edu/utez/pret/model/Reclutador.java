@@ -1,16 +1,10 @@
 package mx.edu.utez.pret.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,10 +37,9 @@ public class Reclutador extends Usuario {
 
     @Builder(buildMethodName = "reclutadorBuilder")
     public Reclutador(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
-            String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
-            Puesto puesto, String nombreEmpresa, String foto, EstadoRepublica estadoRepublicaEmpresa, List<Vacante> vacantes) {
-        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado ,telefono, fechaNacimiento,
-                estadoRepublica, roles);
+        String contrasena, Boolean habilitado, String telefono, LocalDate fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
+        Puesto puesto, String nombreEmpresa, String foto, EstadoRepublica estadoRepublicaEmpresa, List<Vacante> vacantes) {
+        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado ,telefono, fechaNacimiento, estadoRepublica, roles);
         this.puesto = puesto;
         this.nombreEmpresa = nombreEmpresa;
         this.foto = foto;

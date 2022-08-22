@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -38,16 +38,16 @@ import mx.edu.utez.pret.pojo.ConocimientoHabilidadPojo;
     @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
 public class Candidato extends Usuario {
-    @Column(nullable = true, name = "titulo_curricular")
+    @Column(name = "titulo_curricular")
     private String tituloCurricular;
 
-    @Column(nullable = true, name = "descripcion_perfil", columnDefinition = "text null")
+    @Column(name = "descripcion_perfil", columnDefinition = "text null")
     private String descripcionPerfil;
 
-    @Column(nullable = true)
+    @Column
     private String foto;
 
-    @Column(nullable = true, name = "conocimientos_habilidades", columnDefinition = "json")
+    @Column(name = "conocimientos_habilidades", columnDefinition = "json")
     @Type(type = "json")
     private ConocimientoHabilidadPojo conocimientosHabilidades;
 
@@ -78,13 +78,12 @@ public class Candidato extends Usuario {
     
     @Builder(buildMethodName = "candidatoBuilder")
     public Candidato(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correoElectronico,
-            String contrasena, Boolean habilitado, String telefono, Date fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
-            String tituloCurricular, String descripcionPerfil, String foto,
-            ConocimientoHabilidadPojo conocimientosHabilidades, List<Curso> cursos, List<Certificacion> certificaciones,
-            List<ExperienciaLaboral> experienciasLaborales, List<Estudio> estudios, Set<Contacto> contactos,
-            Set<Postulacion> postulaciones, Set<IdiomaCandidato> idiomas, Set<Vacante> vacantesFavoritas) {
-        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento,
-                estadoRepublica, roles);
+        String contrasena, Boolean habilitado, String telefono, LocalDate fechaNacimiento, EstadoRepublica estadoRepublica, Set<Rol> roles,
+        String tituloCurricular, String descripcionPerfil, String foto,
+        ConocimientoHabilidadPojo conocimientosHabilidades, List<Curso> cursos, List<Certificacion> certificaciones,
+        List<ExperienciaLaboral> experienciasLaborales, List<Estudio> estudios, Set<Contacto> contactos,
+        Set<Postulacion> postulaciones, Set<IdiomaCandidato> idiomas, Set<Vacante> vacantesFavoritas) {
+        super(id, nombre, apellidoPaterno, apellidoMaterno, correoElectronico, contrasena, habilitado, telefono, fechaNacimiento, estadoRepublica, roles);
         this.tituloCurricular = tituloCurricular;
         this.descripcionPerfil = descripcionPerfil;
         this.foto = foto;

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
-import mx.edu.utez.pret.model.MailRequest;
-import mx.edu.utez.pret.model.MailResponse;
+import mx.edu.utez.pret.pojo.MailRequestPojo;
+import mx.edu.utez.pret.pojo.MailResponsePojo;
 
 @Service
 public class EmailService {
@@ -27,8 +27,8 @@ public class EmailService {
     @Value("${app.email}")
     private String email;
 
-    public MailResponse sendEmail(MailRequest request, Map<String, Object> model){
-        MailResponse response = new MailResponse();
+    public MailResponsePojo sendEmail(MailRequestPojo request, Map<String, Object> model){
+        MailResponsePojo response = new MailResponsePojo();
         MimeMessage message = mailSender.createMimeMessage();
         Context context = new Context();
         context.setVariables(model);
@@ -43,11 +43,12 @@ public class EmailService {
             helper.setText(htmlBody, true);
             mailSender.send(message);
 
-            response.setMessage("Email enviado :" + request.getToEmail());
+            response.setMessage("Email enviado: " + request.getToEmail());
             response.setStatus(Boolean.TRUE);
 
         } catch (Exception e) {
             e.printStackTrace();
+            response = null;
         }
         return response;
     }

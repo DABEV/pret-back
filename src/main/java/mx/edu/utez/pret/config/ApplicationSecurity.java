@@ -82,7 +82,10 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 "/estado-vacante/**",
                 "/idioma/**",
                 "/puesto/**",
-                "/universidad/**"
+                "/universidad/**",
+                "/vacante/obtener/**",
+                "/candidato/perfil/**",
+                "/reclutador/perfil/**"
             ).permitAll()
             .anyRequest().authenticated()
             .and()

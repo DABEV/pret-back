@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 
 public class ParagraphFormatValidator implements ConstraintValidator<ParagraphFormat, String> {
     
-    private final String PATTERN_STR = "[^À-ÿA-Za-z0-9\\.\\,\\s]+";
+    private final String PATTERN_STR = "[^À-ÿA-Za-z0-9\\.\\,\\+\\#\\s]+";
 
     @Override
     public boolean isValid(String paragraph, ConstraintValidatorContext context) {

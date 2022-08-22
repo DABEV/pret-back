@@ -1,0 +1,53 @@
+### Obtener
+GET {{host}}/vacante/obtener
+Content-Type: application/json
+
+{}
+
+### Obtener por id
+GET {{host}}/vacante/obtener/2
+Content-Type: application/json
+
+{}
+
+### Obtener por reclutador
+GET {{host}}/vacante/obtener/reclutador
+Content-Type: application/json
+Authorization: Bearer {{auth_reclutador}}
+
+{}
+
+### Compartir Vacante
+GET {{host}}/vacante/compartir/3/4
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{}
+
+### Registrar
+POST {{host}}/vacante/registrar
+Content-Type: application/json
+Authorization: Bearer {{auth_reclutador}}
+
+{
+  "nombre": "",
+  "descripcion": "",
+  "modalidad": "",
+  "tipo": "",
+  "fechaInicio": "",
+  "sueldoMin": 150,
+  "sueldoMax": 1000000,
+  "periodoPago": "",
+  "fechaVigencia": "",
+  "beneficios": [
+    { "id": 0 },
+    { "id": 0 }
+  ]
+}
+
+### Eliminar
+DELETE {{host}}/vacante/eliminar/2
+Content-Type: application/json
+Authorization: Bearer {{auth_reclutador}}
+
+{}

@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import mx.edu.utez.pret.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,9 +27,6 @@ import mx.edu.utez.pret.config.Response;
 import mx.edu.utez.pret.model.Candidato;
 import mx.edu.utez.pret.model.EstadoRepublica;
 import mx.edu.utez.pret.model.Usuario;
-import mx.edu.utez.pret.pojo.AuthUploadPhotoPojo;
-import mx.edu.utez.pret.pojo.CandidatoPojo;
-import mx.edu.utez.pret.pojo.EstadoRepublicaPojo;
 import mx.edu.utez.pret.service.CandidatoServiceImp;
 import mx.edu.utez.pret.service.RolServiceImp;
 
@@ -62,25 +60,6 @@ public class CandidatoController {
     private HttpStatus status;
     private Boolean data;
 
-    /**
-     * Return specific data to response
-     */
-    private CandidatoPojo createPojoFromFormFields(Candidato candidato) {
-        return CandidatoPojo.builder()
-            .nombre(candidato.getNombre())
-            .apellidoPaterno(candidato.getApellidoPaterno())
-            .apellidoMaterno(candidato.getApellidoMaterno())
-            .correoElectronico(candidato.getCorreoElectronico())
-            .telefono(candidato.getTelefono())
-            .fechaNacimiento(candidato.getFechaNacimiento())
-            .estadoRepublica(modelMapper.map(candidato.getEstadoRepublica(), EstadoRepublicaPojo.class))
-            .descripcionPerfil(candidato.getDescripcionPerfil())
-            .foto(candidato.getFoto())
-            .tituloCurricular(candidato.getTituloCurricular())
-            .conocimientosHabilidades(candidato.getConocimientosHabilidades())
-            .candidatoBuilder();
-    }
-
     @Transactional
     @PostMapping("/registrar")
     @ResponseBody
@@ -99,7 +78,7 @@ public class CandidatoController {
         candidato = serviceImp.guardar(candidato);
 
         if (candidato != null && candidato.getId() != null) {
-            answ = createPojoFromFormFields(candidato);
+            answ = modelMapper.map(candidato, CandidatoPojo.class);
             title = "Candidato registrado";
             message = "El candidato ha sido registrado satisfactoriamente";
             status = HttpStatus.CREATED;
@@ -135,7 +114,7 @@ public class CandidatoController {
             candidato = serviceImp.guardar(candidato);
             title = "Candidato actualizado";
             message = "Actualización exitosa";
-            answ = createPojoFromFormFields(candidato);
+            answ = modelMapper.map(candidato, CandidatoPojo.class);
         }
 
         return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), HttpStatus.OK);
@@ -146,7 +125,7 @@ public class CandidatoController {
     public ResponseEntity<Map<String, Object>> perfil (@RequestHeader HttpHeaders headers, @PathVariable Optional<Long> id) {
         title = "Datos Candidato";
         message = "";
-        Long idExists = null;
+        Long idExists;
 
         if (id.isPresent()) {
             idExists = id.get();
@@ -156,11 +135,10 @@ public class CandidatoController {
         }
         
         Optional<Candidato> candidatoDb = serviceImp.obtenerPorId(idExists);
-        CandidatoPojo candidatoPojo = candidatoDb.isPresent() && idExists != null ? modelMapper.map(candidatoDb.get(), CandidatoPojo.class) : null;
+        Candidato candidato = candidatoDb.isPresent() ? candidatoDb.get() : null;
+        CandidatoPojo candidatoPojo =  candidato != null  ? modelMapper.map(candidato, CandidatoPojo.class) : null;
         
-        if (candidatoPojo != null)
-            candidatoPojo.setContrasena(null);
-        else 
+        if (candidatoPojo == null || candidatoPojo.getId() == null)
             message = String.format("El candidato con el id %d no existe", idExists);
 
         return new ResponseEntity<>(response.buildStandardResponse(title, candidatoPojo, message), HttpStatus.OK);

@@ -15,7 +15,7 @@
 	<description>Portal de Empleo Talenting</description>
 	<properties>
 		<java.version>11</java.version>
-		<org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 		<dependency>

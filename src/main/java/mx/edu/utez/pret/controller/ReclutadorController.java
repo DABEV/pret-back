@@ -28,8 +28,6 @@ import mx.edu.utez.pret.model.Puesto;
 import mx.edu.utez.pret.model.Reclutador;
 import mx.edu.utez.pret.model.Usuario;
 import mx.edu.utez.pret.pojo.AuthUploadPhotoPojo;
-import mx.edu.utez.pret.pojo.EstadoRepublicaPojo;
-import mx.edu.utez.pret.pojo.PuestoPojo;
 import mx.edu.utez.pret.pojo.ReclutadorPojo;
 import mx.edu.utez.pret.service.ReclutadorServiceImp;
 import mx.edu.utez.pret.service.RolServiceImp;
@@ -64,25 +62,6 @@ public class ReclutadorController {
     private HttpStatus status;
     private Boolean data;
 
-    /**
-     * Return specific data to response
-     */
-    private ReclutadorPojo createPojoFromFormFields(Reclutador reclutador) {
-        return ReclutadorPojo.builder()
-            .nombre(reclutador.getNombre())
-            .apellidoPaterno(reclutador.getApellidoPaterno())
-            .apellidoMaterno(reclutador.getApellidoMaterno())
-            .correoElectronico(reclutador.getCorreoElectronico())
-            .telefono(reclutador.getTelefono())
-            .fechaNacimiento(reclutador.getFechaNacimiento())
-            .estadoRepublica(modelMapper.map(reclutador.getEstadoRepublica(), EstadoRepublicaPojo.class))
-            .puesto(modelMapper.map(reclutador.getPuesto(), PuestoPojo.class))
-            .nombreEmpresa(reclutador.getNombreEmpresa())
-            .foto(reclutador.getFoto())
-            .estadoRepublicaEmpresa(modelMapper.map(reclutador.getEstadoRepublicaEmpresa(), EstadoRepublicaPojo.class))
-            .reclutadorBuilder();
-    }
-
     @Transactional
     @PostMapping("/registrar")
     @ResponseBody
@@ -101,7 +80,7 @@ public class ReclutadorController {
         reclutador = serviceImp.guardar(reclutador);
 
         if (reclutador != null && reclutador.getId() != null) {
-            answ = createPojoFromFormFields(reclutador);
+            answ = modelMapper.map(reclutador, ReclutadorPojo.class);
             title = "Reclutador registrado";
             message = "El reclutador ha sido registrado satisfactoriamente";
             status = HttpStatus.CREATED;
@@ -138,7 +117,7 @@ public class ReclutadorController {
 
             title = "Reclutador actualizado";
             message = "Actualización exitosa";
-            answ = createPojoFromFormFields(reclutador);
+            answ = modelMapper.map(reclutador, ReclutadorPojo.class);
         }
 
         return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), HttpStatus.OK);
@@ -149,7 +128,7 @@ public class ReclutadorController {
     public ResponseEntity<Map<String, Object>> perfil (@RequestHeader HttpHeaders headers, @PathVariable Optional<Long> id) {
         title = "Datos Reclutador";
         message = "";
-        Long idExists = null;
+        Long idExists;
 
         if (id.isPresent()) {
             idExists = id.get();
@@ -161,11 +140,8 @@ public class ReclutadorController {
         Optional<Reclutador> reclutadorDb = serviceImp.obtenerPorId(idExists);
         ReclutadorPojo reclutadorPojo = reclutadorDb.isPresent() && idExists != null ? modelMapper.map(reclutadorDb.get(), ReclutadorPojo.class) : null;
         
-        if (reclutadorPojo != null)
-            reclutadorPojo.setContrasena(null);
-        else 
+        if (reclutadorPojo == null || reclutadorPojo.getId() == null)
             message = String.format("El reclutador con el id %d no existe", idExists);
-
 
         return new ResponseEntity<>(response.buildStandardResponse(title, reclutadorPojo, message), HttpStatus.OK);
     }
