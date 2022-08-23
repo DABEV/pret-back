@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class ExperienciaLaboralPojo {
     @NotNull
     private CandidatoPojo candidato;
     @NotBlank
+    @Size(max = 100)
     private String puesto;
     @NotBlank
     private Date fechaInicio;

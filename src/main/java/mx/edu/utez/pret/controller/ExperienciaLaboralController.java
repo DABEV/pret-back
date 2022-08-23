@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -67,7 +69,7 @@ public class ExperienciaLaboralController {
         Usuario usuario = jwtTokenFilter.getUserDetails(headers);
         Optional<Candidato> candidatoDb = serviceCandidatoImp.obtenerPorId(usuario.getId());
 
-        if(candidatoDb.isPresent()){
+        if (candidatoDb.isPresent()) {
             Candidato candidato = candidatoDb.get();
             experienciaLaboral.setCandidato(candidato);
             experienciaLaboral = serviceExperienciaLaboralImp.guardar(experienciaLaboral);
@@ -76,6 +78,71 @@ public class ExperienciaLaboralController {
         }
 
         return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), status);
+    }
+
+    
+    @Transactional
+    @PostMapping("/actualizar")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> actualizar(@RequestHeader HttpHeaders headers,
+            @Valid @RequestBody ExperienciaLaboralPojo experienciaLaboralPojo) {
+
+        title = "Actualizar experiencia laboral del candidato";
+        message = "Error al actualizar la experiencia laboral del candidato";
+        status = HttpStatus.OK;
+        ExperienciaLaboralPojo answ = null;
+
+        ExperienciaLaboral experienciaLaboral = modelMapper.map(experienciaLaboralPojo, ExperienciaLaboral.class);
+
+        Usuario usuario = jwtTokenFilter.getUserDetails(headers);
+        Optional<Candidato> candidatoDb = serviceCandidatoImp.obtenerPorId(usuario.getId());
+        Optional<ExperienciaLaboral> expLaboralDb = serviceExperienciaLaboralImp.obtenerPorId(experienciaLaboral.getId());
+
+        if (candidatoDb.isPresent() && expLaboralDb.isPresent()) {
+            Candidato candidato = candidatoDb.get();
+            ExperienciaLaboral experienciaLab = expLaboralDb.get();
+
+            experienciaLab.setCandidato(candidato);
+            experienciaLab.setActividadesRealizadas(experienciaLaboralPojo.getActividadesRealizadas());
+            experienciaLab.setFechaFin(experienciaLaboralPojo.getFechaFin());
+            experienciaLab.setFechaInicio(experienciaLaboralPojo.getFechaInicio());
+            experienciaLab.setPuesto(experienciaLaboralPojo.getPuesto());
+
+            experienciaLab = serviceExperienciaLaboralImp.guardar(experienciaLab);
+
+            answ = modelMapper.map(experienciaLab, ExperienciaLaboralPojo.class);
+            message = "La experiencia laboral de candidato ha sido actualizada satisfactoriamente";
+        }
+
+        return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), status);
+    }
+
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<Map<String, Object>> eliminar(@RequestHeader HttpHeaders headers,
+            @PathVariable Long id) {
+
+        title = "Eliminar experiencia laboral del candidato";
+        message = "Error al eliminar la experiencia laboral del candidato";
+        status = HttpStatus.OK;
+
+        Usuario usuario = jwtTokenFilter.getUserDetails(headers);
+        Optional<Candidato> candidatoDb = serviceCandidatoImp.obtenerPorId(usuario.getId());
+        Optional<ExperienciaLaboral> expLaboralDb = serviceExperienciaLaboralImp.obtenerPorId(id);
+
+        if(candidatoDb.isPresent() && expLaboralDb.isPresent()){
+            Candidato candidato = candidatoDb.get();
+            ExperienciaLaboral experienciaLaboral = expLaboralDb.get();
+
+            if(candidato.getId().equals(experienciaLaboral.getId())){
+                serviceExperienciaLaboralImp.eliminar(experienciaLaboral.getId());
+                message = "La experiencia laboral ha sido eliminado satisfactoriamente";
+
+            }
+
+        }
+
+        return new ResponseEntity<>(response.buildStandardResponse(title, message), status);
+
     }
 
 }
