@@ -22,9 +22,7 @@ public class ExperienciaLaboralPojo {
     @NotBlank
     @Size(max = 100)
     private String puesto;
-    @NotBlank
     private Date fechaInicio;
-    @NotBlank
     private Date fechaFin;
     @NotBlank
     private String actividadesRealizadas;
