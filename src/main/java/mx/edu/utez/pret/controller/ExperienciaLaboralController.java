@@ -80,7 +80,6 @@ public class ExperienciaLaboralController {
         return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), status);
     }
 
-    
     @Transactional
     @PostMapping("/actualizar")
     @ResponseBody
@@ -96,22 +95,26 @@ public class ExperienciaLaboralController {
 
         Usuario usuario = jwtTokenFilter.getUserDetails(headers);
         Optional<Candidato> candidatoDb = serviceCandidatoImp.obtenerPorId(usuario.getId());
-        Optional<ExperienciaLaboral> expLaboralDb = serviceExperienciaLaboralImp.obtenerPorId(experienciaLaboral.getId());
+        Optional<ExperienciaLaboral> expLaboralDb = serviceExperienciaLaboralImp
+                .obtenerPorId(experienciaLaboral.getId());
 
         if (candidatoDb.isPresent() && expLaboralDb.isPresent()) {
             Candidato candidato = candidatoDb.get();
             ExperienciaLaboral experienciaLab = expLaboralDb.get();
 
-            experienciaLab.setCandidato(candidato);
-            experienciaLab.setActividadesRealizadas(experienciaLaboralPojo.getActividadesRealizadas());
-            experienciaLab.setFechaFin(experienciaLaboralPojo.getFechaFin());
-            experienciaLab.setFechaInicio(experienciaLaboralPojo.getFechaInicio());
-            experienciaLab.setPuesto(experienciaLaboralPojo.getPuesto());
+            if (experienciaLab.getCandidato().getId() == candidato.getId()) {
 
-            experienciaLab = serviceExperienciaLaboralImp.guardar(experienciaLab);
+                experienciaLab.setCandidato(candidato);
+                experienciaLab.setActividadesRealizadas(experienciaLaboralPojo.getActividadesRealizadas());
+                experienciaLab.setFechaFin(experienciaLaboralPojo.getFechaFin());
+                experienciaLab.setFechaInicio(experienciaLaboralPojo.getFechaInicio());
+                experienciaLab.setPuesto(experienciaLaboralPojo.getPuesto());
 
-            answ = modelMapper.map(experienciaLab, ExperienciaLaboralPojo.class);
-            message = "La experiencia laboral de candidato ha sido actualizada satisfactoriamente";
+                experienciaLab = serviceExperienciaLaboralImp.guardar(experienciaLab);
+
+                answ = modelMapper.map(experienciaLab, ExperienciaLaboralPojo.class);
+                message = "La experiencia laboral de candidato ha sido actualizada satisfactoriamente";
+            }
         }
 
         return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), status);
@@ -129,11 +132,11 @@ public class ExperienciaLaboralController {
         Optional<Candidato> candidatoDb = serviceCandidatoImp.obtenerPorId(usuario.getId());
         Optional<ExperienciaLaboral> expLaboralDb = serviceExperienciaLaboralImp.obtenerPorId(id);
 
-        if(candidatoDb.isPresent() && expLaboralDb.isPresent()){
+        if (candidatoDb.isPresent() && expLaboralDb.isPresent()) {
             Candidato candidato = candidatoDb.get();
             ExperienciaLaboral experienciaLaboral = expLaboralDb.get();
 
-            if(candidato.getId().equals(experienciaLaboral.getId())){
+            if (experienciaLaboral.getCandidato().getId() == candidato.getId()) {
                 serviceExperienciaLaboralImp.eliminar(experienciaLaboral.getId());
                 message = "La experiencia laboral ha sido eliminado satisfactoriamente";
 
