@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.pojo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ public class ExperienciaLaboralPojo {
     private Long id;
     private CandidatoPojo candidato;
     private String puesto;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
     private String actividadesRealizadas;
 }

@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,8 +42,8 @@ public class Estudio {
     private String gradoAcademico;
 
     @Column(nullable = false, name = "fecha_inicio")
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
 
     @Column(name = "fecha_fin", nullable = true)
-    private Date fechaFin;
+    private LocalDate fechaFin;
 }

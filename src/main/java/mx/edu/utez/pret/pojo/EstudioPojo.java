@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.pojo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -27,7 +27,7 @@ public class EstudioPojo {
     @NotBlank
     private String gradoAcademico;
     @NotBlank
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
     @NotBlank
-    private Date fechaFin;
+    private LocalDate fechaFin;
 }
