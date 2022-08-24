@@ -1,5 +1,6 @@
 package mx.edu.utez.pret.service;
 
+import mx.edu.utez.pret.model.Candidato;
 import mx.edu.utez.pret.model.Postulacion;
 import mx.edu.utez.pret.model.PostulacionId;
 import mx.edu.utez.pret.repository.PostulacionRepository;
@@ -30,5 +31,10 @@ public class PostulacionServiceImp implements PostulacionService {
             repository.deleteById(id);
             return true;
         }).orElse(false);
+    }
+
+    @Override
+    public List<Postulacion> obtenerPorCandidato(Candidato candidato) {
+        return repository.findByCandidato(candidato);
     }
 }

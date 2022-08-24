@@ -94,6 +94,24 @@ public class PostulacionController {
         return new ResponseEntity<>(response.buildStandardResponse(title, postulaciones, message), HttpStatus.OK);
     }
 
+    @GetMapping("/obtener/candidato")
+    public ResponseEntity<Map<String, Object>> obtenerPorCandidato (@RequestHeader HttpHeaders headers) {
+        title = "Obtener las postulaciones de un candidato";
+        message = "Error al obtener las postulaciones de un candidato";
+
+        List<PostulacionPojo> postulaciones = null;
+        Usuario usuario = jwtTokenFilter.getUserDetails(headers);
+
+        Optional<Candidato> candidatoDp = candidatoServiceImp.obtenerPorId(usuario.getId());
+        
+        if (candidatoDp.isPresent()) {
+            postulaciones = modelMapper.mapList(serviceImp.obtenerPorCandidato(candidatoDp.get()), PostulacionPojo.class);
+            message = "Se han obtenido exitosamente";
+        }
+
+        return new ResponseEntity<>(response.buildStandardResponse(title, postulaciones, message), HttpStatus.OK);
+    }
+
     @Transactional
     @PostMapping("/registrar")
     @ResponseBody
