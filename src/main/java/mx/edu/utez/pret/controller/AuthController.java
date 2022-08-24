@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import mx.edu.utez.pret.config.CustomModelMapper;
+import mx.edu.utez.pret.pojo.RolPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,7 +34,11 @@ import mx.edu.utez.pret.pojo.AuthChangePasswordPojo;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    @Autowired 
+
+    @Autowired
+    private CustomModelMapper modelMapper;
+
+    @Autowired
     private AuthenticationManager authManager;
     
     @Autowired 
@@ -69,7 +75,7 @@ public class AuthController {
         String accessToken = jwtUtil.generateAccessToken(usuario);
 
         if (accessToken != null && !accessToken.isEmpty() && !accessToken.isBlank()) {
-            responsePojo = new AuthResponsePojo(usuario.getCorreoElectronico(), accessToken);
+            responsePojo = new AuthResponsePojo(usuario.getCorreoElectronico(), accessToken, modelMapper.mapSet(usuario.getRoles(), RolPojo.class));
             title = "Autenticación exitosa";
         }
             
