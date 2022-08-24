@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface PostulacionService {
     Optional<Postulacion> obtenerPorId(PostulacionId id);
+    List<Postulacion> obtenerPorCandidato(Candidato candidato);
     Postulacion guardar(Postulacion postulacion);
     Boolean eliminar(PostulacionId id);
 }
