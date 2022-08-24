@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.pojo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,8 +22,10 @@ public class ExperienciaLaboralPojo {
     @NotBlank
     @Size(max = 100)
     private String puesto;
-    private Date fechaInicio;
-    private Date fechaFin;
+    @NotNull
+    private LocalDate fechaInicio;
+    
+    private LocalDate fechaFin;
     @NotBlank
     private String actividadesRealizadas;
 }

@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,10 +33,10 @@ public class ExperienciaLaboral {
     private String puesto;
 
     @Column(nullable = false, name = "fecha_inicio")
-    private Date fechaInicio;
+    private LocalDate fechaInicio;
 
     @Column(nullable = true, name = "fecha_fin")
-    private Date fechaFin;
+    private LocalDate fechaFin;
 
     @Column(nullable = false, name = "actividades_realizadas")
     private String actividadesRealizadas;

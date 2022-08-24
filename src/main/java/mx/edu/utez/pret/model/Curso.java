@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,8 +18,8 @@ public class Curso extends Logro {
     private Integer numeroHoras;
 
     @Builder(buildMethodName = "cursoBuilder")
-    public Curso(Long id, String nombre, String empresa, Date fechaObtencion, Candidato candidato,
-            Integer numeroHoras) {
+    public Curso(Long id, String nombre, String empresa, LocalDate fechaObtencion, Candidato candidato,
+                 Integer numeroHoras) {
         super(id, nombre, empresa, fechaObtencion, candidato);
         this.numeroHoras = numeroHoras;
     }

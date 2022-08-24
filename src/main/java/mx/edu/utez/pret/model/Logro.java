@@ -1,6 +1,6 @@
 package mx.edu.utez.pret.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -30,7 +30,7 @@ public class Logro {
     private String empresa;
 
     @Column(nullable = false, name = "fecha_obtencion")
-    private Date fechaObtencion;
+    private LocalDate fechaObtencion;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "candidato_id")
