@@ -60,6 +60,14 @@ public class CustomModelMapper {
 
         };
 
+        PropertyMap<Certificacion, CertificacionPojo> certificacionPropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getCandidato());
+            }
+
+        };
+
         PropertyMap<Candidato, CandidatoPojo> candidatoPropertyMapper = new PropertyMap<>() {
             @Override
             protected void configure() {
@@ -91,6 +99,7 @@ public class CustomModelMapper {
         modelMapper.addMappings(beneficioPropertyMapper);
         modelMapper.addMappings(puestoPropertyMapper);
         modelMapper.addMappings(cursoPropertyMapper);
+        modelMapper.addMappings(certificacionPropertyMapper);
         modelMapper.addMappings(candidatoPropertyMapper);
         modelMapper.addMappings(reclutadorPropertyMapper);
         modelMapper.addMappings(vacantePropertyMapper);

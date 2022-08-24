@@ -1,7 +1,9 @@
 package mx.edu.utez.pret.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import mx.edu.utez.pret.model.Candidato;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +33,10 @@ public class CertificacionServiceImp implements CertificacionService {
             return true;
         }).orElse(false);
     }
-    
+
+    @Override
+    public List<Certificacion> obtenerPorCandidato(Candidato candidato) {
+        return repository.findByCandidato(candidato);
+    }
+
 }
