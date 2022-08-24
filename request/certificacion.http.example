@@ -1,0 +1,37 @@
+### Obtener por candidato
+GET {{host}}/certificacion/obtener/candidato
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+### Registrar
+POST {{host}}/certificacion/registrar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "nombre": "",
+  "empresa": "",
+  "fechaObtencion": "",
+  "fechaCaducidad": ""
+}
+
+### Actualizar
+POST {{host}}/certificacion/actualizar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "id": 0,
+  "nombre": "",
+  "empresa": "",
+  "fechaObtencion": "",
+  "fechaCaducidad": ""
+}
+
+
+### Eliminar
+DELETE {{host}}/certificacion/eliminar/1
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{}

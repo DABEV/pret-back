@@ -72,6 +72,7 @@ public class CustomModelMapper {
             @Override
             protected void configure() {
                 skip(destination.getContrasena());
+                skip(destination.getContactos());
             }
         };
 
@@ -91,8 +92,6 @@ public class CustomModelMapper {
                 skip(destination.getBeneficios());
             }
         };
-
-        // modelMapper.getConfiguration().setAmbiguityIgnored(true);
 
         modelMapper.addMappings(estadoRepublicaPropertyMapper);
         modelMapper.addMappings(rolPropertyMapper);

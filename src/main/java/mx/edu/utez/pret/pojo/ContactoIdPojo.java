@@ -2,10 +2,11 @@ package mx.edu.utez.pret.pojo;
 
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class ContactoIdPojo implements Serializable {
     private Long candidatoId;

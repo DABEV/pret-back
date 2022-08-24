@@ -1,0 +1,31 @@
+### Obtener lista de amigos
+GET {{host}}/contacto/lista-amigos
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{}
+
+### Registrar
+POST {{host}}/contacto/enviar-solicitud
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "id": {
+    "amigoId": 0
+  }
+}
+
+### Aceptar solicitud
+GET {{host}}/contacto/aceptar/1
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{}
+
+### Eliminar
+DELETE {{host}}/contacto/rechazar/1
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{}
