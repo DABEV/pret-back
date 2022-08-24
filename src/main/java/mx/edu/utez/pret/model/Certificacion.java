@@ -6,13 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "certificaciones")
 @Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 public class Certificacion extends Logro {
     @Column(nullable = false, name = "fecha_caducidad")
     private LocalDate fechaCaducidad;

@@ -2,12 +2,10 @@ package mx.edu.utez.pret.pojo;
 
 import java.time.LocalDate;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 public class CertificacionPojo extends LogroPojo {
     private LocalDate fechaCaducidad;
     
