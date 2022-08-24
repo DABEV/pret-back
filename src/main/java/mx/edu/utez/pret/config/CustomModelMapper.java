@@ -103,7 +103,6 @@ public class CustomModelMapper {
             protected void configure() {
                 skip(destination.getPostulaciones());
                 skip(destination.getCandidatosEnFavoritos());
-                skip(destination.getBeneficios());
             }
         };
 
