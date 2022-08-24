@@ -1,9 +1,10 @@
 package mx.edu.utez.pret.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class PostulacionPojo {
     private PostulacionIdPojo id;

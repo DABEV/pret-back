@@ -144,6 +144,18 @@ public class CandidatoController {
         return new ResponseEntity<>(response.buildStandardResponse(title, candidatoPojo, message), HttpStatus.OK);
     }
 
+    @PostMapping("/get-id-by-email")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> obtenerIdPorCorreo (@RequestBody RequestEmailPojo request) {
+        title = "Id del candidato";
+        message = "";
+
+        Optional<Usuario> usuarioDb = serviceImp.obtenerPorCorreo(request.getCorreoElectronico());
+        Long id = usuarioDb.isPresent() ? usuarioDb.get().getId() : -1;
+
+        return new ResponseEntity<>(response.buildStandardResponse(title, id, message), HttpStatus.OK);
+    }
+
     @PostMapping("/actualizar-foto")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> actualizarFoto (@RequestHeader HttpHeaders headers, @Valid @RequestBody AuthUploadPhotoPojo request) {

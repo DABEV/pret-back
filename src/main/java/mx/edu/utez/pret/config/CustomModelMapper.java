@@ -8,7 +8,6 @@ import mx.edu.utez.pret.model.*;
 import mx.edu.utez.pret.pojo.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
-import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,6 +19,20 @@ public class CustomModelMapper {
         this.modelMapper = new ModelMapper();
 
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
+        PropertyMap<ExperienciaLaboral, ExperienciaLaboralPojo> experienciaLaboralPropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getCandidato());
+            }
+        };
+
+        PropertyMap<EstadoVacante, EstadoVacantePojo> estadoVacantePropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getPostulaciones());
+            }
+        };
 
         PropertyMap<EstadoRepublica, EstadoRepublicaPojo> estadoRepublicaPropertyMapper = new PropertyMap<>() {
             @Override
@@ -73,6 +86,7 @@ public class CustomModelMapper {
             protected void configure() {
                 skip(destination.getContrasena());
                 skip(destination.getContactos());
+                skip(destination.getPostulaciones());
             }
         };
 
@@ -93,6 +107,8 @@ public class CustomModelMapper {
             }
         };
 
+        modelMapper.addMappings(experienciaLaboralPropertyMapper);
+        modelMapper.addMappings(estadoVacantePropertyMapper);
         modelMapper.addMappings(estadoRepublicaPropertyMapper);
         modelMapper.addMappings(rolPropertyMapper);
         modelMapper.addMappings(beneficioPropertyMapper);
@@ -102,7 +118,6 @@ public class CustomModelMapper {
         modelMapper.addMappings(candidatoPropertyMapper);
         modelMapper.addMappings(reclutadorPropertyMapper);
         modelMapper.addMappings(vacantePropertyMapper);
-
     }
 
     public <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
