@@ -1,0 +1,37 @@
+### Obtener por candidato
+GET {{host}}/curso/obtener/candidato
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+### Registrar
+POST {{host}}/curso/registrar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "nombre": "",
+  "empresa": "",
+  "fechaObtencion": "",
+  "numeroHoras": 0
+}
+
+### Actualizar
+POST {{host}}/curso/actualizar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "id": 0,
+  "nombre": "",
+  "empresa": "",
+  "fechaObtencion": "",
+  "numeroHoras": 0
+}
+
+
+### Eliminar
+DELETE {{host}}/curso/eliminar/1
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{}

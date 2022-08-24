@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import mx.edu.utez.pret.model.*;
 import mx.edu.utez.pret.pojo.*;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
@@ -18,48 +19,82 @@ public class CustomModelMapper {
     public CustomModelMapper () {
         this.modelMapper = new ModelMapper();
 
-        /*** El orden de colocar los TypeMap IMPORTA MUCHO!!  ***/
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
 
-        TypeMap<EstadoRepublica, EstadoRepublicaPojo> estadoRepublicaPropertyMapper = this.modelMapper.createTypeMap(EstadoRepublica.class, EstadoRepublicaPojo.class);
-        estadoRepublicaPropertyMapper.addMappings(mapper -> {
-            mapper.skip(EstadoRepublicaPojo::setCandidatos);
-            mapper.skip(EstadoRepublicaPojo::setUniversidades);
-            mapper.skip(EstadoRepublicaPojo::setReclutadores);
-        });
+        PropertyMap<EstadoRepublica, EstadoRepublicaPojo> estadoRepublicaPropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getCandidatos());
+                skip(destination.getUniversidades());
+                skip(destination.getReclutadores());
+            }
+        };
 
-        TypeMap<Rol, RolPojo> rolPropertyMapper = this.modelMapper.createTypeMap(Rol.class, RolPojo.class);
-        rolPropertyMapper.addMappings(mapper -> {
-            mapper.skip(RolPojo::setId);
-            mapper.skip(RolPojo::setUsuarios);
-        });
+        PropertyMap<Rol, RolPojo> rolPropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getId());
+                skip(destination.getUsuarios());
+            }
+        };
 
-        TypeMap<Beneficio, BeneficioPojo> beneficioPropertyMapper = this.modelMapper.createTypeMap(Beneficio.class, BeneficioPojo.class);
-        beneficioPropertyMapper.addMappings(mapper -> {
-            mapper.skip(BeneficioPojo::setVacantes);
-        });
+        PropertyMap<Beneficio, BeneficioPojo> beneficioPropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getVacantes());
+            }
+        };
 
-        TypeMap<Puesto, PuestoPojo> puestoPropertyMapper = this.modelMapper.createTypeMap(Puesto.class, PuestoPojo.class);
-        puestoPropertyMapper.addMappings(mapper -> {
-            mapper.skip(PuestoPojo::setReclutadores);
-        });
+        PropertyMap<Puesto, PuestoPojo> puestoPropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getReclutadores());
+            }
+        };
 
-        TypeMap<Candidato, CandidatoPojo> candidatoPropertyMapper = this.modelMapper.createTypeMap(Candidato.class, CandidatoPojo.class);
-        candidatoPropertyMapper.addMappings(mapper -> {
-            mapper.skip(CandidatoPojo::setContrasena);
-        });
+        PropertyMap<Curso, CursoPojo> cursoPropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getCandidato());
+            }
 
-        TypeMap<Reclutador, ReclutadorPojo> reclutadorPropertyMapper = this.modelMapper.createTypeMap(Reclutador.class, ReclutadorPojo.class);
-        reclutadorPropertyMapper.addMappings(mapper -> {
-            mapper.skip(ReclutadorPojo::setContrasena);
-            mapper.skip(ReclutadorPojo::setVacantes);
-        });
+        };
+
+        PropertyMap<Candidato, CandidatoPojo> candidatoPropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getContrasena());
+            }
+        };
+
+        PropertyMap<Reclutador, ReclutadorPojo> reclutadorPropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getContrasena());
+                skip(destination.getVacantes());
+            }
+        };
         
-        TypeMap<Vacante, VacantePojo> vacantePropertyMapper = this.modelMapper.createTypeMap(Vacante.class, VacantePojo.class);
-        vacantePropertyMapper.addMappings(mapper -> {
-            mapper.skip(VacantePojo::setPostulaciones);
-            mapper.skip(VacantePojo::setCandidatosEnFavoritos);
-            mapper.skip(VacantePojo::setBeneficios);
-        });
+        PropertyMap<Vacante, VacantePojo> vacantePropertyMapper = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getPostulaciones());
+                skip(destination.getCandidatosEnFavoritos());
+                skip(destination.getBeneficios());
+            }
+        };
+
+        // modelMapper.getConfiguration().setAmbiguityIgnored(true);
+
+        modelMapper.addMappings(estadoRepublicaPropertyMapper);
+        modelMapper.addMappings(rolPropertyMapper);
+        modelMapper.addMappings(beneficioPropertyMapper);
+        modelMapper.addMappings(puestoPropertyMapper);
+        modelMapper.addMappings(cursoPropertyMapper);
+        modelMapper.addMappings(candidatoPropertyMapper);
+        modelMapper.addMappings(reclutadorPropertyMapper);
+        modelMapper.addMappings(vacantePropertyMapper);
+
     }
 
     public <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
