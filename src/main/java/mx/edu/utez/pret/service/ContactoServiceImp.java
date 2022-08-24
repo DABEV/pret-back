@@ -1,7 +1,9 @@
 package mx.edu.utez.pret.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import mx.edu.utez.pret.model.Candidato;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,14 @@ public class ContactoServiceImp implements ContactoService {
             return true;
         }).orElse(false);
     }
-    
+
+    @Override
+    public List<Contacto> obtenerPorCandidato(Candidato candidato) {
+        return repository.findByCandidato(candidato);
+    }
+
+    @Override
+    public List<Contacto> obtenerPorAmigo(Candidato candidato) {
+        return repository.findByAmigo(candidato);
+    }
 }
