@@ -2,15 +2,27 @@ package mx.edu.utez.pret.pojo;
 
 import java.time.LocalDate;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+import mx.edu.utez.pret.validator.ParagraphFormat;
 
-@Data
-@AllArgsConstructor
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class LogroPojo {
     private Long id;
+
+    @NotBlank
+    @ParagraphFormat
     private String nombre;
+
+    @NotBlank
+    @ParagraphFormat
     private String empresa;
+
+    @NotNull
     private LocalDate fechaObtencion;
+
     private CandidatoPojo candidato;
 }

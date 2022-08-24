@@ -2,13 +2,18 @@ package mx.edu.utez.pret.pojo;
 
 import java.time.LocalDate;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class CursoPojo extends LogroPojo {
+
+    @NotNull
+    @Min(1) @Max(1000)
     private Integer numeroHoras;
 
     @Builder(buildMethodName = "cursoBuilder")
