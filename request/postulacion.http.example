@@ -1,0 +1,36 @@
+### Obtener
+GET {{host}}/postulacion/obtener/vacante/1
+Content-Type: application/json
+Authorization: Bearer {{auth_reclutador}}
+
+{}
+
+
+### Registrar
+POST {{host}}/postulacion/registrar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "id": {
+    "vacanteId": 0
+  },
+  "cv": ""
+}
+
+### Actualizar
+POST {{host}}/postulacion/actualizar
+Content-Type: application/json
+Authorization: Bearer {{auth_reclutador}}
+
+## Si se envía el id de estadoVacante en 5, entonces las demás postulaciones seran rechazadas.
+{
+  "id": {
+    "vacanteId": 0,
+    "candidatoId": 0
+  },
+  "estadoVacante": {
+    "id": o
+  }
+}
+
