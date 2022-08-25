@@ -132,6 +132,7 @@ public class CustomModelMapper {
         modelMapper.addMappings(reclutadorPropertyMapper);
         modelMapper.addMappings(vacantePropertyMapper);
         modelMapper.addMappings(idiomaCandidatoPropertyMap);
+        modelMapper.addMappings(idiomaPropertyMap);
     }
 
     public <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {

@@ -17,7 +17,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ExperienciaLaboralPojo {
     private Long id;
-    @NotNull
     private CandidatoPojo candidato;
     @NotBlank
     @Size(max = 100)
