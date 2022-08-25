@@ -17,7 +17,6 @@ import lombok.Setter;
 @Setter
 public class EstudioPojo {
     private Long id;
-    @NotNull
     private CandidatoPojo candidato;
     @NotNull
     private UniversidadPojo universidad;
@@ -26,8 +25,7 @@ public class EstudioPojo {
     private String carrera;
     @NotBlank
     private String gradoAcademico;
-    @NotBlank
+    @NotNull
     private LocalDate fechaInicio;
-    @NotBlank
     private LocalDate fechaFin;
 }

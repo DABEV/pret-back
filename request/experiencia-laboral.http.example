@@ -1,0 +1,32 @@
+### Registrar
+POST {{host}}/experiencia-laboral/registrar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "puesto": ",
+  "fechaInicio": "",
+  "fechaFin": "",
+  "actividadesRealizadas": ""
+}
+
+### Actualizar
+POST {{host}}/experiencia-laboral/actualizar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "id": 0,
+  "puesto": "",
+  "fechaInicio": "",
+  "fechaFin": "",
+  "actividadesRealizadas": ""
+}
+
+### Eliminar
+DELETE {{host}}/experiencia-laboral/eliminar/0
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+}

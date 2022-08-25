@@ -1,0 +1,19 @@
+### Registrar
+POST {{host}}/idioma-candidato/registrar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "id": {
+    "idiomaId": 0
+  },
+  "nivel": ""
+}
+
+### Eliminar
+DELETE {{host}}/idioma-candidato/eliminar/0
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+}

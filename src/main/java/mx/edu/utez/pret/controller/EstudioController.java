@@ -1,5 +1,6 @@
 package mx.edu.utez.pret.controller;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -72,7 +73,17 @@ public class EstudioController {
         Optional<Candidato> candidatoDb = serviceCandidatoImp.obtenerPorId(usuario.getId());
         Optional<Universidad> universidadDb = serviceUniversidadImp.obtenerPorId(estudio.getUniversidad().getId());
 
-        if (candidatoDb.isPresent() && universidadDb.isPresent()) {
+        // Valida las fechas del estudio
+        LocalDate now = LocalDate.now();
+        Boolean flag =
+                estudioPojo.getFechaInicio().isBefore(now) &&
+                        // En caso de que exista la fecha de fin, la agregamos a la validación.
+                        (estudioPojo.getFechaFin() != null ? estudioPojo.getFechaInicio().isBefore(estudioPojo.getFechaFin()) && estudioPojo.getFechaFin().isBefore(now) : true);
+
+        if (!flag)
+            message = "Favor de verificar las fechas del estudio.";
+
+        if (candidatoDb.isPresent() && universidadDb.isPresent() && flag) {
             Candidato candidato = candidatoDb.get();
             Universidad universidad = universidadDb.get();
             estudio.setCandidato(candidato);
@@ -99,8 +110,17 @@ public class EstudioController {
         Optional<Estudio> estudioDb = serviceImp.obtenerPorId(estudio.getId());
         Optional<Universidad> universidadDb = serviceUniversidadImp.obtenerPorId(estudio.getUniversidad().getId());
 
+        // Valida las fechas de la experiencia
+        LocalDate now = LocalDate.now();
+        Boolean flag =
+                estudioPojo.getFechaInicio().isBefore(now) &&
+                        // En caso de que exista la fecha de fin, la agregamos a la validación.
+                        (estudioPojo.getFechaFin() != null ? estudioPojo.getFechaInicio().isBefore(estudioPojo.getFechaFin()) && estudioPojo.getFechaFin().isBefore(now) : true);
 
-        if (candidatoDb.isPresent() && estudioDb.isPresent() && universidadDb.isPresent()) {
+        if (!flag)
+            message = "Favor de verificar las fechas del estudio.";
+
+        if (candidatoDb.isPresent() && estudioDb.isPresent() && universidadDb.isPresent() && flag) {
             Candidato candidato = candidatoDb.get();
             Estudio estudioPresent = estudioDb.get();
             Universidad universidad = universidadDb.get();

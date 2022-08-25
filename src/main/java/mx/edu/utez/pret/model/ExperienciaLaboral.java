@@ -35,7 +35,7 @@ public class ExperienciaLaboral {
     @Column(nullable = false, name = "fecha_inicio")
     private LocalDate fechaInicio;
 
-    @Column(nullable = true, name = "fecha_fin")
+    @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
     @Column(nullable = false, name = "actividades_realizadas")
