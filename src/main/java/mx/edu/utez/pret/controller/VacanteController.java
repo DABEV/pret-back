@@ -104,7 +104,15 @@ public class VacanteController {
         Usuario usuario = jwtTokenFilter.getUserDetails(headers);
         Optional<Reclutador> reclutadorDb = reclutadorServiceImp.obtenerPorId(usuario.getId());
 
-        if (reclutadorDb.isPresent()) {
+        // Valida las fechas de la vacante
+        LocalDate now = LocalDate.now();
+
+        Boolean flag = now.isBefore(vacantePojo.getFechaInicio()) && vacantePojo.getFechaInicio().isBefore(vacantePojo.getFechaVigencia());
+
+        if (!flag)
+            message = "Error en las fechas, favor de verificarlas";
+
+        if (reclutadorDb.isPresent() && flag) {
             vacantePojo.setReclutador(modelMapper.map(reclutadorDb.get(), ReclutadorPojo.class));
             Vacante vacante = modelMapper.map(vacantePojo, Vacante.class);
             vacante = serviceImp.guardar(vacante);
@@ -158,7 +166,6 @@ public class VacanteController {
                 answ = modelMapper.map(vacante, VacantePojo.class);
             }
         }
-
 
         return new ResponseEntity<>(response.buildStandardResponse(title, answ, message), HttpStatus.OK);
     }

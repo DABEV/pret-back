@@ -123,7 +123,13 @@ public class PostulacionController {
         Usuario usuario = jwtTokenFilter.getUserDetails(headers);
         Optional<Candidato> candidatoDb = candidatoServiceImp.obtenerPorId(usuario.getId());
 
-        if (candidatoDb.isPresent()) {
+        // Verifica que el usuario no este postulado
+        Optional<Postulacion> postulacionDb = serviceImp.obtenerPorId(new PostulacionId(usuario.getId(), postulacionPojo.getId().getVacanteId()));
+
+        if (postulacionDb.isPresent())
+            message = "Usted ya esta postulado a esta vacante";
+
+        if (candidatoDb.isPresent() && !postulacionDb.isPresent()) {
             Postulacion postulacion = modelMapper.map(postulacionPojo, Postulacion.class);
             postulacion.setId(new PostulacionId(usuario.getId(), postulacionPojo.getId().getVacanteId()));
             postulacion.setCandidato(modelMapper.map(candidatoServiceImp.obtenerPorId(usuario.getId()), Candidato.class));
