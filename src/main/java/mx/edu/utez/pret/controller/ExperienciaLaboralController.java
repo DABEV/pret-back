@@ -75,7 +75,7 @@ public class ExperienciaLaboralController {
         Boolean flag =
                 experienciaLaboralPojo.getFechaInicio().isBefore(now) &&
                         // En caso de que exista la fecha de fin, la agregamos a la validación.
-                        (experienciaLaboralPojo.getFechaFin() != null ? experienciaLaboralPojo.getFechaInicio().isBefore(experienciaLaboralPojo.getFechaFin()) : true);
+                        (experienciaLaboralPojo.getFechaFin() != null ? experienciaLaboralPojo.getFechaInicio().isBefore(experienciaLaboralPojo.getFechaFin()) && experienciaLaboralPojo.getFechaFin().isBefore(now) : true);
 
         if (!flag)
             message = "Favor de verificar las fechas de la experiencia.";
@@ -114,7 +114,7 @@ public class ExperienciaLaboralController {
         Boolean flag =
                 experienciaLaboralPojo.getFechaInicio().isBefore(now) &&
                 // En caso de que exista la fecha de fin, la agregamos a la validación.
-                (experienciaLaboralPojo.getFechaFin() != null ? experienciaLaboralPojo.getFechaInicio().isBefore(experienciaLaboralPojo.getFechaFin()) : true);
+                (experienciaLaboralPojo.getFechaFin() != null ? experienciaLaboralPojo.getFechaInicio().isBefore(experienciaLaboralPojo.getFechaFin()) && experienciaLaboralPojo.getFechaFin().isBefore(now) : true);
 
         if (!flag)
             message = "Favor de verificar las fechas de la experiencia.";
@@ -160,7 +160,6 @@ public class ExperienciaLaboralController {
             if (experienciaLaboral.getCandidato().getId() == candidato.getId()) {
                 serviceExperienciaLaboralImp.eliminar(experienciaLaboral.getId());
                 message = "La experiencia laboral ha sido eliminado satisfactoriamente";
-
             }
 
         }

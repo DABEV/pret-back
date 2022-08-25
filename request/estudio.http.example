@@ -1,0 +1,38 @@
+### Registrar
+POST {{host}}/estudio/registrar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "universidad": {
+    "id": 0
+  },
+  "carrera": "",
+  "gradoAcademico": "",
+  "fechaInicio": "",
+  "fechaFin": null
+}
+
+### Actualizar
+POST {{host}}/estudio/actualizar
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+  "id": 0,
+  "universidad": {
+    "id": 0
+  },
+  "carrera": "",
+  "gradoAcademico": "",
+  "fechaInicio": "",
+  "fechaFin": null
+}
+
+### Eliminar
+DELETE {{host}}/estudio/eliminar/0
+Content-Type: application/json
+Authorization: Bearer {{auth_candidato}}
+
+{
+}

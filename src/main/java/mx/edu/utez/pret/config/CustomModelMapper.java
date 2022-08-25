@@ -120,6 +120,20 @@ public class CustomModelMapper {
             }
         };
 
+        PropertyMap<Estudio, EstudioPojo> estudioPropertyMap = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getCandidato());
+            }
+        };
+
+        PropertyMap<Universidad, UniversidadPojo> universidadPropertyMap = new PropertyMap<>() {
+            @Override
+            protected void configure() {
+                skip(destination.getEstudios());
+            }
+        };
+
         modelMapper.addMappings(experienciaLaboralPropertyMapper);
         modelMapper.addMappings(estadoVacantePropertyMapper);
         modelMapper.addMappings(estadoRepublicaPropertyMapper);
@@ -133,6 +147,8 @@ public class CustomModelMapper {
         modelMapper.addMappings(vacantePropertyMapper);
         modelMapper.addMappings(idiomaCandidatoPropertyMap);
         modelMapper.addMappings(idiomaPropertyMap);
+        modelMapper.addMappings(universidadPropertyMap);
+        modelMapper.addMappings(estudioPropertyMap);
     }
 
     public <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
